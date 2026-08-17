@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_travel_root" name="BenAmor Travel"
+              web_icon="benamor_travel,static/description/icon.png"
+              sequence="10" groups="group_travel_user"/>
+
+    <!-- ===== 1. TABLEAU DE BORD ===== -->
+    <menuitem id="menu_travel_dashboard" name="Tableau de bord"
+              parent="menu_travel_root" action="action_travel_dashboard" sequence="10"/>
+
+    <!-- ===== 2. CONTACTS ===== -->
+    <menuitem id="menu_travel_contacts" name="Contacts"
+              parent="menu_travel_root" sequence="20"/>
+
+    <!-- ===== 3. OPERATIONS ===== -->
+    <menuitem id="menu_travel_operations" name="Exploitation"
+              parent="menu_travel_root" sequence="30"/>
+    <menuitem id="menu_travel_file" name="Dossiers de Réservation"
+              parent="menu_travel_operations" action="travel_file_action" sequence="10"/>
+    <menuitem id="menu_travel_passenger" name="Liste des Voyageurs"
+              parent="menu_travel_operations" action="travel_passenger_action" sequence="20"/>
+
+    <!-- ===== 5. VENTES (natif) ===== -->
+    <menuitem id="menu_travel_sales" name="Facturation Client"
+              parent="menu_travel_root" sequence="40"/>
+    <menuitem id="menu_travel_sale_order" name="Devis et Commandes"
+              parent="menu_travel_sales" action="action_travel_sale_order" sequence="10"/>
+    <menuitem id="menu_travel_out_invoice" name="Factures Clients"
+              parent="menu_travel_sales" action="action_travel_out_invoice" sequence="20"/>
+    <menuitem id="menu_travel_in_payment" name="Encaissements"
+              parent="menu_travel_sales" action="action_travel_in_payment" sequence="30"/>
+
+    <!-- ===== 4. ACHATS (natif) ===== -->
+    <menuitem id="menu_travel_purchases" name="Facturation Fournisseur"
+              parent="menu_travel_root" sequence="50"/>
+    <menuitem id="menu_travel_purchase_order" name="Bons de Commande TO"
+              parent="menu_travel_purchases" action="action_travel_purchase_order" sequence="10"/>
+    <menuitem id="menu_travel_in_invoice" name="Factures Fournisseurs"
+              parent="menu_travel_purchases" action="action_travel_in_invoice" sequence="20"/>
+    <menuitem id="menu_travel_out_payment" name="Reglements"
+              parent="menu_travel_purchases" action="action_travel_out_payment" sequence="30"/>
+
+    <!-- (Le menu Contacts est defini plus haut pour gerer l'ordre) -->
+    <menuitem id="menu_travel_customer" name="Clients"
+              parent="menu_travel_contacts" action="action_travel_customer" sequence="10"/>
+    <menuitem id="menu_travel_supplier" name="Prestataires / Fournisseurs"
+              parent="menu_travel_contacts" action="action_travel_supplier" sequence="20"/>
+    <menuitem id="menu_travel_travelers" name="Voyageurs"
+              parent="menu_travel_contacts" action="action_travel_travelers" sequence="25"/>
+
+    <!-- ===== 6. ANALYSE ===== -->
+    <menuitem id="menu_travel_analysis" name="Statistiques et Reporting"
+              parent="menu_travel_root" sequence="60" groups="group_travel_manager"/>
+    <menuitem id="menu_travel_file_analysis" name="Analyse des marges"
+              parent="menu_travel_analysis" action="action_travel_file_analysis" sequence="10"/>
+    <menuitem id="menu_travel_service_analysis" name="Analyse par Service"
+              parent="menu_travel_analysis" action="action_travel_service_analysis" sequence="20"/>
+
+    <!-- ===== 7. CONFIGURATION ===== -->
+    <menuitem id="menu_travel_config" name="Configuration"
+              parent="menu_travel_root" sequence="70" groups="group_travel_manager"/>
+
+    <menuitem id="menu_travel_config_travel" name="Referentiel voyage"
+              parent="menu_travel_config" sequence="10"/>
+    <menuitem id="menu_travel_destination" name="Destinations"
+              parent="menu_travel_config_travel" action="travel_destination_action" sequence="10"/>
+    <menuitem id="menu_travel_airline" name="Compagnies aeriennes"
+              parent="menu_travel_config_travel" action="travel_airline_action" sequence="20"/>
+    <menuitem id="menu_travel_hotel" name="Hotels"
+              parent="menu_travel_config_travel" action="travel_hotel_action" sequence="30"/>
+    <menuitem id="menu_travel_document_type" name="Types de documents"
+              parent="menu_travel_config_travel" action="travel_document_type_action"
+              sequence="40"/>
+
+    <menuitem id="menu_travel_config_product" name="Catalogue Services"
+              parent="menu_travel_config" sequence="20"/>
+    <menuitem id="menu_travel_product" name="Services"
+              parent="menu_travel_config_product" action="action_travel_product" sequence="10"/>
+    <menuitem id="menu_travel_template" name="Packages / Modèles"
+              parent="menu_travel_config_product" action="travel_template_action" sequence="15"/>
+    <menuitem id="menu_travel_pricelist" name="Listes de prix"
+              parent="menu_travel_config_product" action="action_travel_pricelist" sequence="20"/>
+
+    <menuitem id="menu_travel_config_account" name="Comptabilite"
+              parent="menu_travel_config" sequence="30"/>
+    <menuitem id="menu_travel_payment_term" name="Conditions de paiement"
+              parent="menu_travel_config_account" action="action_travel_payment_term" sequence="10"/>
+    <menuitem id="menu_travel_tax" name="Taxes"
+              parent="menu_travel_config_account" action="action_travel_tax" sequence="20"/>
+    <menuitem id="menu_travel_currency" name="Devises et taux"
+              parent="menu_travel_config_account" action="action_travel_currency" sequence="30"/>
+
+</odoo>

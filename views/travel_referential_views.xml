@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="travel_destination_view_list" model="ir.ui.view">
+        <field name="name">travel.destination.list</field>
+        <field name="model">travel.destination</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="name"/>
+                <field name="city"/>
+                <field name="country_id"/>
+            </list>
+        </field>
+    </record>
+    <record id="travel_destination_action" model="ir.actions.act_window">
+        <field name="name">Destinations</field>
+        <field name="res_model">travel.destination</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="travel_airline_view_list" model="ir.ui.view">
+        <field name="name">travel.airline.list</field>
+        <field name="model">travel.airline</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="name"/>
+                <field name="iata_code"/>
+                <field name="partner_id"/>
+            </list>
+        </field>
+    </record>
+    <record id="travel_airline_action" model="ir.actions.act_window">
+        <field name="name">Compagnies aeriennes</field>
+        <field name="res_model">travel.airline</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="travel_hotel_view_list" model="ir.ui.view">
+        <field name="name">travel.hotel.list</field>
+        <field name="model">travel.hotel</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="name"/>
+                <field name="destination_id"/>
+                <field name="category"/>
+                <field name="partner_id"/>
+            </list>
+        </field>
+    </record>
+    <record id="travel_hotel_action" model="ir.actions.act_window">
+        <field name="name">Hotels</field>
+        <field name="res_model">travel.hotel</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

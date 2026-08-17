@@ -1,0 +1,16 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_travel_file_user,travel.file.user,model_travel_file,group_travel_user,1,1,1,0
+access_travel_file_manager,travel.file.manager,model_travel_file,group_travel_manager,1,1,1,1
+access_travel_service_user,travel.service.user,model_travel_service,group_travel_user,1,1,1,1
+access_travel_passenger_user,travel.passenger.user,model_travel_passenger,group_travel_user,1,1,1,1
+access_travel_payment_plan_user,travel.payment.plan.user,model_travel_payment_plan,group_travel_user,1,1,1,1
+access_travel_destination_user,travel.destination.user,model_travel_destination,group_travel_user,1,0,0,0
+access_travel_destination_manager,travel.destination.manager,model_travel_destination,group_travel_manager,1,1,1,1
+access_travel_airline_user,travel.airline.user,model_travel_airline,group_travel_user,1,0,0,0
+access_travel_airline_manager,travel.airline.manager,model_travel_airline,group_travel_manager,1,1,1,1
+access_travel_hotel_user,travel.hotel.user,model_travel_hotel,group_travel_user,1,0,0,0
+access_travel_hotel_manager,travel.hotel.manager,model_travel_hotel,group_travel_manager,1,1,1,1
+access_travel_dashboard_user,travel.dashboard.user,model_travel_dashboard,group_travel_user,1,1,1,1
+access_travel_document_user,travel.document.user,model_travel_document,group_travel_user,1,1,1,1
+access_travel_document_type_user,travel.document.type.user,model_travel_document_type,group_travel_user,1,0,0,0
+access_travel_document_type_manager,travel.document.type.manager,model_travel_document_type,group_travel_manager,1,1,1,1

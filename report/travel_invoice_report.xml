@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Bloc informations voyage insere en haut de la facture client.
+         L'ancrage utilise le premier element de la div "page", ce qui est
+         stable quelle que soit la structure interne du template Odoo. -->
+    <template id="report_invoice_travel_block"
+              inherit_id="account.report_invoice_document">
+        <xpath expr="//div[hasclass('page')]/*[1]" position="before">
+            <div t-if="o.travel_file_id" class="mb-3"
+                 style="border: 1px solid #dee2e6; border-radius: 4px; padding: 10px;">
+                <table class="table table-sm table-borderless mb-0"
+                       style="font-size: 0.9rem;">
+                    <tr>
+                        <td style="width: 22%;"><strong>Dossier</strong></td>
+                        <td style="width: 28%;"><span t-field="o.travel_file_id.name"/></td>
+                        <td style="width: 22%;"><strong>Destination</strong></td>
+                        <td><span t-field="o.travel_destination_id"/></td>
+                    </tr>
+                    <tr t-if="o.travel_date_departure">
+                        <td><strong>Depart</strong></td>
+                        <td><span t-field="o.travel_date_departure"/></td>
+                        <td><strong>Retour</strong></td>
+                        <td><span t-field="o.travel_date_return"/></td>
+                    </tr>
+                    <tr t-if="o.travel_passenger_names">
+                        <td><strong>Passagers</strong></td>
+                        <td colspan="3"><span t-field="o.travel_passenger_names"/></td>
+                    </tr>
+                </table>
+            </div>
+        </xpath>
+    </template>
+
+    <!-- Meme bloc sur le devis / bon de commande -->
+    <template id="report_saleorder_travel_block"
+              inherit_id="sale.report_saleorder_document">
+        <xpath expr="//div[hasclass('page')]/*[1]" position="before">
+            <div t-if="doc.travel_file_id" class="mb-3"
+                 style="border: 1px solid #dee2e6; border-radius: 4px; padding: 10px;">
+                <table class="table table-sm table-borderless mb-0"
+                       style="font-size: 0.9rem;">
+                    <tr>
+                        <td style="width: 22%;"><strong>Dossier</strong></td>
+                        <td style="width: 28%;"><span t-field="doc.travel_file_id.name"/></td>
+                        <td style="width: 22%;"><strong>Destination</strong></td>
+                        <td><span t-field="doc.travel_file_id.destination_id"/></td>
+                    </tr>
+                    <tr t-if="doc.travel_file_id.date_departure">
+                        <td><strong>Depart</strong></td>
+                        <td><span t-field="doc.travel_file_id.date_departure"/></td>
+                        <td><strong>Retour</strong></td>
+                        <td><span t-field="doc.travel_file_id.date_return"/></td>
+                    </tr>
+                </table>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>

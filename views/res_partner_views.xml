@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_partner_view_form_travel" model="ir.ui.view">
+        <field name="name">res.partner.form.travel</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_travel_files" type="object"
+                        class="oe_stat_button" icon="fa-plane">
+                    <field name="travel_file_count" widget="statinfo"
+                           string="Dossiers"/>
+                </button>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Voyageur" name="travel">
+                    <group>
+                        <group string="Documents de voyage">
+                            <field name="is_traveler"/>
+                            <field name="travel_birthdate"/>
+                            <field name="travel_nationality_id"/>
+                            <field name="travel_passport_number"/>
+                            <field name="travel_passport_expiry"/>
+                        </group>
+                        <group string="Historique">
+                            <field name="travel_trip_count" readonly="1"/>
+                            <field name="travel_last_date" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Preferences">
+                        <field name="travel_note" nolabel="1"
+                               placeholder="Siege cote hublot, repas sans gluten, ..."/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_travel_travelers" model="ir.actions.act_window">
+        <field name="name">Voyageurs</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="domain">[('is_traveler', '=', True)]</field>
+        <field name="context">{'default_is_traveler': True}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Aucun voyageur enregistre</p>
+            <p>Les voyageurs sont crees automatiquement quand vous liez un
+               passager a un contact.</p>
+        </field>
+    </record>
+
+    <record id="travel_document_type_view_list" model="ir.ui.view">
+        <field name="name">travel.document.type.list</field>
+        <field name="model">travel.document.type</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="per_passenger"/>
+                <field name="file_types"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="travel_document_type_action" model="ir.actions.act_window">
+        <field name="name">Types de documents</field>
+        <field name="res_model">travel.document.type</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_travel_documents_todo" model="ir.actions.act_window">
+        <field name="name">Documents manquants</field>
+        <field name="res_model">travel.document</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('state', '=', 'todo'),
+                              ('file_id.state', 'in', ('option', 'confirmed'))]</field>
+    </record>
+
+    <record id="travel_document_view_list" model="ir.ui.view">
+        <field name="name">travel.document.list</field>
+        <field name="model">travel.document</field>
+        <field name="arch" type="xml">
+            <list decoration-warning="state == 'todo'">
+                <field name="file_id"/>
+                <field name="name"/>
+                <field name="passenger_id"/>
+                <field name="state"/>
+                <field name="date_received"/>
+            </list>
+        </field>
+    </record>
+
+</odoo>

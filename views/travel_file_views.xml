@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="travel_file_view_list" model="ir.ui.view">
+        <field name="name">travel.file.list</field>
+        <field name="model">travel.file</field>
+        <field name="arch" type="xml">
+            <list decoration-danger="margin &lt; 0" decoration-muted="state == 'cancel'">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="file_type"/>
+                <field name="destination_id" optional="show"/>
+                <field name="date_departure"/>
+                <field name="user_id" widget="many2one_avatar_user"/>
+                <field name="amount_sale" sum="Total vente"/>
+                <field name="amount_cost" sum="Total cout" optional="hide"/>
+                <field name="margin" sum="Marge"/>
+                <field name="margin_rate" widget="percentage" optional="hide"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'confirmed'"
+                       decoration-info="state == 'option'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="travel_file_view_form" model="ir.ui.view">
+        <field name="name">travel.file.form</field>
+        <field name="model">travel.file</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_create_from_template" type="object"
+                            string="Creer un dossier depuis ce modele"
+                            class="btn-primary" invisible="not is_template"/>
+                    <button name="action_option" type="object" string="Mettre en option"
+                            invisible="state != 'draft' or is_template"/>
+                    <button name="action_confirm" type="object" string="Confirmer"
+                            class="btn-primary" invisible="state not in ('draft','option') or is_template"/>
+                    <button name="action_create_sale_order" type="object"
+                            string="Generer la commande" class="btn-primary"
+                            invisible="state != 'confirmed'"/>
+                    <button name="action_done" type="object" string="Cloturer"
+                            invisible="state != 'confirmed'"/>
+                    <button name="action_cancel" type="object" string="Annuler"
+                            invisible="state in ('cancel','done')"/>
+                    <button name="action_draft" type="object" string="Remettre en brouillon"
+                            invisible="state != 'cancel'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,option,confirmed,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_sale_orders" type="object"
+                                class="oe_stat_button" icon="fa-file-text-o">
+                            <field name="sale_order_count" widget="statinfo" string="Commandes"/>
+                        </button>
+                        <button name="action_generate_documents" type="object"
+                                class="oe_stat_button" icon="fa-check-square-o"
+                                invisible="not document_ids">
+                            <field name="document_missing_count" widget="statinfo"
+                                   string="Docs manquants"/>
+                        </button>
+                        <button name="%(travel_passenger_action)d" type="action"
+                                class="oe_stat_button" icon="fa-users"
+                                context="{'search_default_file_id': id}">
+                            <field name="passenger_count" widget="statinfo" string="Voyageurs"/>
+                        </button>
+                    </div>
+                    <div class="alert alert-info" role="status"
+                         invisible="not is_template">
+                        Ceci est un <strong>modele de dossier</strong>. Il ne sera
+                        ni confirme ni facture. Utilisez le bouton en haut pour
+                        creer un vrai dossier a partir de ce modele.
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"
+                                   invisible="is_template"/>
+                            <field name="template_name" placeholder="Nom du modele"
+                                   invisible="not is_template"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="is_template"/>
+                            <field name="partner_id"
+                                   required="not is_template"
+                                   invisible="is_template"/>
+                            <field name="file_type"/>
+                            <field name="destination_id"/>
+                            <field name="user_id" widget="many2one_avatar_user"/>
+                        </group>
+                        <group>
+                            <field name="date_open"/>
+                            <field name="date_departure"/>
+                            <field name="date_return"/>
+                            <field name="analytic_account_id" readonly="1"
+                                   invisible="not analytic_account_id"/>
+                            <field name="next_deadline" readonly="1"
+                                   invisible="not next_deadline"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Services Inclus" name="services">
+                            <group class="mb-2">
+                                <group>
+                                    <label for="target_margin_rate"/>
+                                    <div>
+                                        <field name="target_margin_rate"
+                                               class="oe_inline"/> %
+                                        <button name="action_apply_target_margin"
+                                                type="object" string="Appliquer"
+                                                class="btn-link"
+                                                invisible="not target_margin_rate"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <button name="action_qty_from_passengers"
+                                                type="object"
+                                                string="Qte = nombre de passagers"
+                                                class="btn-link"/>
+                                    </div>
+                                </group>
+                            </group>
+                            <field name="service_ids" context="{'default_file_id': id}">
+                                <list editable="bottom"
+                                      decoration-danger="deadline_state == 'passed'"
+                                      decoration-warning="deadline_state == 'soon'">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="service_type"/>
+                                    <field name="description"/>
+                                    <field name="product_id"/>
+                                    <field name="supplier_id"/>
+                                    <field name="date_start"/>
+                                    <field name="date_end" optional="show"/>
+                                    <field name="quantity"/>
+                                    <field name="cost_currency_id" optional="show"/>
+                                    <field name="cost_amount"/>
+                                    <field name="markup_rate" optional="show"/>
+                                    <field name="sale_price_unit"/>
+                                    <field name="sale_subtotal" sum="Total"/>
+                                    <field name="margin" sum="Marge"/>
+                                    <field name="cancellation_deadline" optional="show"/>
+                                    <field name="deadline_state" optional="hide"
+                                           widget="badge"
+                                           decoration-danger="deadline_state == 'passed'"
+                                           decoration-warning="deadline_state == 'soon'"/>
+                                    <field name="excluded_from_invoice" optional="hide"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                            <group class="oe_subtotal_footer oe_right">
+                                <field name="amount_sale"/>
+                                <field name="amount_cost"/>
+                                <field name="margin" class="oe_subtotal_footer_separator"/>
+                                <field name="margin_rate" widget="percentage"/>
+                            </group>
+                        </page>
+                        <page string="Voyageurs" name="passengers">
+                            <field name="passenger_ids" context="{'default_file_id': id}">
+                                <list editable="bottom"
+                                      decoration-danger="passport_state == 'expired'"
+                                      decoration-warning="passport_state == 'warning'">
+                                    <field name="partner_id" optional="show"
+                                           string="Contact"/>
+                                    <field name="name"/>
+                                    <field name="pax_type"/>
+                                    <field name="birthdate"/>
+                                    <field name="nationality_id"/>
+                                    <field name="passport_number"/>
+                                    <field name="passport_expiry"/>
+                                    <field name="passport_state"/>
+                                    <field name="visa_state"/>
+                                    <field name="phone" optional="hide"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Echeancier" name="payment_plan">
+                            <field name="payment_plan_ids" context="{'default_file_id': id}">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="date_due"/>
+                                    <field name="amount" sum="Total"/>
+                                    <field name="state"/>
+                                    <field name="note" optional="hide"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Documents" name="documents">
+                            <button name="action_generate_documents" type="object"
+                                    string="Generer la liste des documents"
+                                    class="btn-link mb-2"/>
+                            <field name="document_ids" context="{'default_file_id': id}">
+                                <list editable="bottom"
+                                      decoration-warning="state == 'todo'"
+                                      decoration-success="state == 'received'">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="passenger_id" optional="show"/>
+                                    <field name="state"/>
+                                    <field name="date_received" optional="show"/>
+                                    <field name="note" optional="hide"/>
+                                    <field name="type_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="note"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="travel_file_view_search" model="ir.ui.view">
+        <field name="name">travel.file.search</field>
+        <field name="model">travel.file</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="destination_id"/>
+                <field name="passenger_ids" string="Passager"/>
+                <filter name="my_files" string="Mes dossiers"
+                        domain="[('user_id','=',uid)]"/>
+                <separator/>
+                <filter name="open" string="En cours"
+                        domain="[('state','in',('draft','option','confirmed'))]"/>
+                <filter name="doc_missing" string="Documents manquants"
+                        domain="[('document_missing_count','&gt;',0)]"/>
+                <filter name="deadline_soon" string="Limite d'annulation proche"
+                        domain="[('is_deadline_soon','=',True)]"/>
+                <filter name="upcoming" string="Departs a venir"
+                        domain="[('is_upcoming','=',True)]"/>
+                <separator/>
+                <filter name="gb_type" string="Type" context="{'group_by':'file_type'}"/>
+                <filter name="gb_agent" string="Agent" context="{'group_by':'user_id'}"/>
+                <filter name="gb_dest" string="Destination" context="{'group_by':'destination_id'}"/>
+                <filter name="gb_month" string="Mois de depart" context="{'group_by':'date_departure'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="travel_file_action" model="ir.actions.act_window">
+        <field name="name">Dossiers de voyage</field>
+        <field name="res_model">travel.file</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('is_template', '=', False)]</field>
+        <field name="context">{'search_default_open': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Creez votre premier dossier de voyage</p>
+        </field>
+    </record>
+    <record id="travel_template_action" model="ir.actions.act_window">
+        <field name="name">Modeles de dossier</field>
+        <field name="res_model">travel.file</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('is_template', '=', True)]</field>
+        <field name="context">{'default_is_template': True}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Creez un modele de dossier</p>
+            <p>Un modele contient des prestations types que vous reutilisez
+               a chaque nouveau dossier similaire.</p>
+        </field>
+    </record>
+</odoo>

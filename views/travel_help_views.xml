@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_travel_guide" model="ir.actions.act_url">
+        <field name="name">Guide complet</field>
+        <field name="url">/benamor_travel/static/src/guide.html</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="travel_service_view_form" model="ir.ui.view">
+        <field name="name">travel.service.form</field>
+        <field name="model">travel.service</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group string="General">
+                            <field name="file_id"/>
+                            <field name="service_type"/>
+                            <field name="product_id"/>
+                            <field name="description"/>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="quantity"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group string="Achat / Vente">
+                            <field name="supplier_id"/>
+                            <field name="supplier_ref"/>
+                            <field name="cost_currency_id"/>
+                            <field name="cost_amount"/>
+                            <field name="cost_company" readonly="1"/>
+                            <field name="sale_price_unit"/>
+                            <field name="sale_subtotal" readonly="1"/>
+                            <field name="margin" readonly="1"/>
+                            <field name="excluded_from_invoice"/>
+                        </group>
+                    </group>
+                    <group string="Vol" invisible="service_type != 'flight'">
+                        <field name="airline_id"/>
+                        <field name="pnr"/>
+                        <field name="ticket_number"/>
+                        <field name="route"/>
+                    </group>
+                    <group string="Hebergement" invisible="service_type not in ('hotel','omra','package')">
+                        <field name="hotel_id"/>
+                        <field name="room_type"/>
+                        <field name="board"/>
+                        <field name="nights" readonly="1"/>
+                    </group>
+                    <field name="passenger_ids" widget="many2many_tags"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="travel_service_view_list" model="ir.ui.view">
+        <field name="name">travel.service.list</field>
+        <field name="model">travel.service</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="file_id"/>
+                <field name="service_type"/>
+                <field name="description"/>
+                <field name="supplier_id"/>
+                <field name="date_start"/>
+                <field name="cost_company" sum="Cout"/>
+                <field name="sale_subtotal" sum="Vente"/>
+                <field name="margin" sum="Marge"/>
+                <field name="currency_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="travel_service_action" model="ir.actions.act_window">
+        <field name="name">Services</field>
+        <field name="res_model">travel.service</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Guide complet — BenAmor Travel</title>
+<style>
+  body { font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+         line-height: 1.75; color: #2c2c2a; max-width: 820px;
+         margin: 0 auto; padding: 30px 20px 80px; background: #fff; font-size: 16px; }
+  h1 { font-size: 28px; font-weight: 600; border-bottom: 3px solid #1d9e75;
+       padding-bottom: 12px; margin-bottom: 6px; }
+  h2 { font-size: 22px; font-weight: 600; margin-top: 46px; color: #0f6e56;
+       background: #f2f8f5; padding: 12px 16px; border-radius: 6px; }
+  h3 { font-size: 17px; font-weight: 600; margin-top: 26px; }
+  .sub { color: #666; margin-top: 0; }
+  .menu { display: inline-block; background: #0f6e56; color: #fff;
+          padding: 3px 10px; border-radius: 4px; font-size: 14px;
+          font-weight: 600; margin-bottom: 6px; }
+  .btn { display: inline-block; background: #714b67; color: #fff;
+         padding: 2px 10px; border-radius: 4px; font-size: 14px; font-weight: 600; }
+  .lead { background: #f7f9f8; padding: 16px 20px; border-radius: 6px; margin: 20px 0; }
+  .tip { background: #eef4fb; border-left: 5px solid #378add;
+         padding: 12px 18px; margin: 16px 0; border-radius: 0 6px 6px 0; }
+  .warn { background: #fdf6e8; border-left: 5px solid #ba7517;
+          padding: 12px 18px; margin: 16px 0; border-radius: 0 6px 6px 0; }
+  table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 15px; }
+  th, td { border: 1px solid #ddd; padding: 9px 12px; text-align: left; vertical-align: top; }
+  th { background: #f2f2ef; font-weight: 600; }
+  code { background: #f2f2ef; padding: 2px 7px; border-radius: 3px;
+         font-family: Menlo, Consolas, monospace; font-size: 14px; }
+  .toc { background: #f7f9f8; padding: 20px 26px; border-radius: 6px; margin: 26px 0; }
+  .toc ol { margin: 10px 0 0; padding-left: 22px; }
+  .toc li { margin: 4px 0; }
+  .toc a { color: #0f6e56; text-decoration: none; }
+  .flow { border: 2px solid #d8e5e0; border-radius: 6px; padding: 16px 20px;
+          background: #fafcfb; margin: 20px 0; line-height: 2; }
+  .red { color: #a32d2d; font-weight: 600; }
+  .orange { color: #854f0b; font-weight: 600; }
+  .green { color: #0f6e56; font-weight: 600; }
+  hr { border: none; border-top: 1px solid #e5e5e2; margin: 36px 0; }
+  @media print { body { padding: 0; } h2 { page-break-after: avoid; } }
+</style>
+</head>
+<body>
+
+<h1>Guide complet de l'application</h1>
+<p class="sub">Un dossier de voyage du début à la fin, en passant par tous les menus</p>
+
+<div class="lead">
+Ce guide suit un seul dossier, de la préparation de l'agence jusqu'à la clôture
+du voyage. Chaque étape indique dans quel menu aller. Suivez-les dans l'ordre.
+</div>
+
+<div class="flow">
+<strong>Le parcours complet</strong><br/>
+Configuration → Contacts → Dossier → Passagers → Prestations → Échéancier →
+Confirmation → Commande → Facture → Encaissement → Achats → Suivi → Clôture →
+Analyse
+</div>
+
+<div class="toc">
+  <strong>Sommaire</strong>
+  <ol>
+    <li><a href="#e1">Préparer l'agence (une seule fois)</a></li>
+    <li><a href="#e2">Enregistrer le client</a></li>
+    <li><a href="#e3">Créer le dossier de voyage</a></li>
+    <li><a href="#e4">Saisir les passagers</a></li>
+    <li><a href="#e5">Saisir les prestations</a></li>
+    <li><a href="#e6">Prévoir les paiements</a></li>
+    <li><a href="#e7">Confirmer le dossier</a></li>
+    <li><a href="#e8">Générer la commande de vente</a></li>
+    <li><a href="#e9">Facturer le client</a></li>
+    <li><a href="#e10">Encaisser le paiement</a></li>
+    <li><a href="#e11">Commander chez les fournisseurs</a></li>
+    <li><a href="#e12">Suivre au quotidien</a></li>
+    <li><a href="#e13">Imprimer les documents</a></li>
+    <li><a href="#e14">Clôturer le dossier</a></li>
+    <li><a href="#e15">Analyser l'activité</a></li>
+    <li><a href="#e16">Gagner du temps : les 8 raccourcis</a></li>
+  </ol>
+</div>
+
+<hr/>
+
+<h2 id="e1">Étape 1 — Préparer l'agence</h2>
+<span class="menu">Configuration</span>
+<p><em>À faire une seule fois, avant le premier dossier. Réservé aux responsables.</em></p>
+
+<h3>1.1 Les devises</h3>
+<p><strong>Configuration → Comptabilité → Devises et taux</strong></p>
+<p>Activez les devises que vous utilisez pour acheter : EUR, USD.
+Renseignez les taux de change.</p>
+<div class="warn">
+Sans taux de change à jour, toutes vos marges seront fausses. C'est le réglage le
+plus important.
+</div>
+
+<h3>1.2 Les articles</h3>
+<p><strong>Configuration → Articles et tarifs → Articles / prestations</strong></p>
+<p>Créez les services que vous vendez. Bouton <span class="btn">Nouveau</span>
+pour chacun :</p>
+<table>
+  <tr><th style="width:38%">Nom de l'article</th><th>Utilisé pour</th></tr>
+  <tr><td>Billet avion</td><td>Toute billetterie</td></tr>
+  <tr><td>Nuitée hôtel</td><td>Hébergement</td></tr>
+  <tr><td>Forfait séjour</td><td>Packages complets</td></tr>
+  <tr><td>Frais de visa</td><td>Demandes de visa</td></tr>
+  <tr><td>Assurance voyage</td><td>Assurances</td></tr>
+  <tr><td>Transfert aéroport</td><td>Transferts</td></tr>
+</table>
+
+<h3>1.3 Le référentiel voyage</h3>
+<p><strong>Configuration → Référentiel voyage</strong></p>
+<table>
+  <tr><th style="width:32%">Écran</th><th>Ce que vous y mettez</th></tr>
+  <tr><td>Destinations</td><td>Paris, Istanbul, Dubaï, Djerba…</td></tr>
+  <tr><td>Compagnies aériennes</td><td>Nom et code IATA</td></tr>
+  <tr><td>Hôtels</td><td>Nom, destination, catégorie</td></tr>
+</table>
+
+<h3>1.4 Les utilisateurs</h3>
+<p><strong>Paramètres → Utilisateurs</strong></p>
+<p>Pour chaque employé, cochez le groupe <strong>Agent</strong> ou
+<strong>Responsable</strong> dans la section Agence de Voyage.</p>
+
+<hr/>
+
+<h2 id="e2">Étape 2 — Enregistrer le client</h2>
+<span class="menu">Contacts</span>
+
+<p><strong>Contacts → Clients</strong>, bouton <span class="btn">Nouveau</span>.</p>
+<p>Saisissez le nom, le téléphone, l'email et l'adresse.</p>
+
+<div class="tip">
+Vous pouvez sauter cette étape. Dans le dossier, tapez le nom du client dans le
+champ Client : si il n'existe pas, Odoo propose de le créer sur place.
+</div>
+
+<p>Les fournisseurs se créent de la même façon dans
+<strong>Contacts → Fournisseurs</strong> : compagnies aériennes,
+tour-opérateurs, hôtels, assureurs.</p>
+
+<hr/>
+
+<h2 id="e3">Étape 3 — Créer le dossier de voyage</h2>
+<span class="menu">Opérations</span>
+
+<p><strong>Opérations → Dossiers de voyage</strong>, bouton
+<span class="btn">Nouveau</span>.</p>
+
+<table>
+  <tr><th style="width:34%">Champ</th><th>Ce que vous saisissez</th></tr>
+  <tr><td>Client payeur</td><td>Celui qui règle la facture</td></tr>
+  <tr><td>Type de dossier</td><td>Billetterie, séjour, visa…</td></tr>
+  <tr><td>Destination</td><td>Où va le client</td></tr>
+  <tr><td>Agent</td><td>Vous, par défaut</td></tr>
+  <tr><td>Date de départ</td><td>Départ du voyage</td></tr>
+  <tr><td>Date de retour</td><td>Retour du voyage</td></tr>
+</table>
+
+<p>Le numéro <code>DV/2026/00001</code> s'écrit automatiquement. Ne le saisissez
+pas.</p>
+
+<p>Le dossier est en état <strong>Brouillon</strong>.</p>
+
+<hr/>
+
+<h2 id="e4">Étape 4 — Saisir les passagers</h2>
+<span class="menu">Opérations → onglet Passagers</span>
+
+<p>Dans le dossier, cliquez sur l'onglet <strong>Passagers</strong>, puis
+<em>Ajouter une ligne</em>.</p>
+
+<table>
+  <tr><th style="width:34%">Champ</th><th>Remarque</th></tr>
+  <tr><td>Nom complet</td><td>Tel qu'écrit sur le passeport</td></tr>
+  <tr><td>Type</td><td>Adulte, Enfant ou Bébé</td></tr>
+  <tr><td>Date de naissance</td><td>Utile pour les tarifs enfants</td></tr>
+  <tr><td>Nationalité</td><td>Pour les formalités de visa</td></tr>
+  <tr><td>N. Passeport</td><td>Numéro complet</td></tr>
+  <tr><td>Expiration passeport</td><td>Date écrite sur le passeport</td></tr>
+  <tr><td>Visa</td><td>Non requis, à déposer, en cours, obtenu, refusé</td></tr>
+</table>
+
+<p>La ligne change de couleur selon le passeport :</p>
+<table>
+  <tr><td style="width:30%"><span class="green">Normale</span></td>
+      <td>Valide plus de 6 mois après le départ</td></tr>
+  <tr><td><span class="orange">Orange</span></td>
+      <td>Expire moins de 6 mois après le départ — prévenez le client</td></tr>
+  <tr><td><span class="red">Rouge</span></td>
+      <td>Sera expiré au départ — le voyage est impossible</td></tr>
+</table>
+
+<div class="warn">
+Le client qui paie et les passagers sont deux choses différentes. Un père qui
+paie pour sa famille : <strong>1 client</strong> et <strong>5 passagers</strong>.
+</div>
+
+<h3>Le client est déjà venu ? Ne retapez pas son passeport</h3>
+<p>Renseignez la colonne <strong>Contact</strong> avec son nom. Le système
+reprend automatiquement sa date de naissance, sa nationalité, son numéro de
+passeport et sa date d'expiration.</p>
+<p>Si c'est sa première fois, saisissez normalement et indiquez quand même le
+contact : ses documents seront mémorisés pour la prochaine fois.</p>
+
+<hr/>
+
+<h2 id="e5">Étape 5 — Saisir les prestations</h2>
+<span class="menu">Opérations → onglet Prestations</span>
+
+<p>Onglet <strong>Prestations</strong>, puis <em>Ajouter une ligne</em>.
+Une ligne par service acheté.</p>
+
+<table>
+  <tr><th style="width:30%">Colonne</th><th>Ce que vous saisissez</th></tr>
+  <tr><td>Type</td><td>Vol, Hébergement, Visa, Assurance, Transfert…</td></tr>
+  <tr><td>Désignation</td><td>Description libre</td></tr>
+  <tr><td>Article</td><td>L'article créé à l'étape 1.2</td></tr>
+  <tr><td>Fournisseur</td><td>Chez qui vous achetez</td></tr>
+  <tr><td>Date début / fin</td><td>Dates de la prestation</td></tr>
+  <tr><td>Qté</td><td>Nombre de passagers, ou de chambres, ou de nuits</td></tr>
+  <tr><td>Devise achat</td><td>EUR, USD ou monnaie locale</td></tr>
+  <tr><td>Coût</td><td>Ce que vous payez au fournisseur</td></tr>
+  <tr><td>PU vente</td><td>Ce que vous facturez au client</td></tr>
+</table>
+
+<h3>Champs qui apparaissent selon le type</h3>
+<table>
+  <tr><th style="width:30%">Si le type est</th><th>Champs supplémentaires</th></tr>
+  <tr><td>Vol</td><td>Compagnie, PNR, numéro de billet, itinéraire</td></tr>
+  <tr><td>Hébergement</td><td>Hôtel, type de chambre, formule, nuitées</td></tr>
+</table>
+
+<h3>La marge</h3>
+<p>En bas de l'onglet, quatre chiffres apparaissent automatiquement :</p>
+<div class="flow">
+Total vente : 4 200,00<br/>
+Total coût : 3 097,50<br/>
+<strong>Marge : 1 102,50</strong><br/>
+Taux de marge : 26,25 %
+</div>
+<p>Vous savez combien vous gagnez avant même de confirmer.</p>
+
+<div class="tip">
+<strong>Devises</strong> — saisissez le montant en euros et choisissez EUR dans la
+colonne devise. Le système convertit tout seul. Ne convertissez jamais à la main.
+</div>
+
+<div class="tip">
+<strong>Prestation offerte</strong> — cochez « Hors facture ». Elle compte dans
+votre marge mais n'apparaît pas sur la facture du client.
+</div>
+
+<h3>Laisser le système calculer votre prix de vente</h3>
+<p>Au lieu de chercher le bon prix, saisissez le coût puis une
+<strong>marge cible</strong> dans la colonne prévue.</p>
+<p>Exemple : coût 100, marge cible 25 % → le prix de vente devient 133,33, et
+votre marge est bien de 25 % du prix de vente.</p>
+<p>Pour appliquer le même taux à tout le dossier : saisissez le taux dans
+<strong>Marge cible du dossier</strong> au-dessus de la liste, puis cliquez sur
+<strong>Appliquer</strong>.</p>
+<p>Si vous préférez fixer le prix vous-même, laissez la colonne vide.</p>
+
+<h3>Ne pas compter les passagers à la main</h3>
+<p>Quand vous choisissez un type facturé par personne (vol, visa, assurance,
+omra, forfait), la quantité se remplit automatiquement avec le nombre de
+passagers du dossier.</p>
+<p>Si vous ajoutez un passager après coup, cliquez sur
+<strong>Qté = nombre de passagers</strong> au-dessus de la liste : toutes les
+lignes concernées se mettent à jour.</p>
+<p>Les hôtels et transferts ne sont pas concernés : leur quantité correspond à
+des chambres ou des véhicules.</p>
+
+<h3>La date limite d'annulation</h3>
+<p>Sur chaque prestation, remplissez <strong>Limite d'annulation</strong> :
+la date après laquelle le fournisseur vous facturera même si le client annule.</p>
+<p>La ligne change de couleur :</p>
+<table>
+  <tr><td style="width:30%"><span class="green">Normale</span></td>
+      <td>Plus de 7 jours avant la limite</td></tr>
+  <tr><td><span class="orange">Orange</span></td>
+      <td>Moins de 7 jours — décidez maintenant</td></tr>
+  <tr><td><span class="red">Rouge</span></td>
+      <td>Limite dépassée — l'annulation est payante</td></tr>
+</table>
+<p>Cinq jours avant chaque limite, le système vous crée automatiquement un
+rappel dans vos activités.</p>
+<div class="warn">
+C'est le champ qui évite de payer une chambre que personne n'occupera. Remplissez-le
+dès que le fournisseur vous communique ses conditions.
+</div>
+
+<hr/>
+
+<h2 id="e6">Étape 6 — Prévoir les paiements</h2>
+<span class="menu">Opérations → onglet Échéancier</span>
+
+<p>Onglet <strong>Échéancier</strong>, puis <em>Ajouter une ligne</em>.</p>
+
+<table>
+  <tr><th>Libellé</th><th>Échéance</th><th>Montant</th></tr>
+  <tr><td>Acompte</td><td>15 janvier</td><td>1 500</td></tr>
+  <tr><td>Solde</td><td>1 mars</td><td>2 700</td></tr>
+</table>
+
+<p>Ces lignes servent au suivi. Une échéance dépassée apparaît en alerte sur le
+tableau de bord.</p>
+
+<p>Enregistrez avec le <strong>nuage</strong> en haut de l'écran.</p>
+
+<h3>La liste des documents à réclamer</h3>
+<p>Onglet <strong>Documents</strong>, bouton
+<strong>Générer la liste des documents</strong>.</p>
+<p>Le système crée la liste des pièces à obtenir selon le type de dossier :
+copie de passeport pour chaque passager, photo d'identité si visa, contrat signé,
+attestation d'assurance, billet émis…</p>
+<p>Au fur et à mesure que vous recevez les pièces, passez la ligne en
+<strong>Reçu</strong>.</p>
+<p>Le menu <strong>Opérations → Documents manquants</strong> vous montre à tout
+moment ce qui manque sur l'ensemble de vos dossiers.</p>
+
+<hr/>
+
+<h2 id="e7">Étape 7 — Confirmer le dossier</h2>
+<span class="menu">Opérations</span>
+
+<p>Tant que le client hésite :</p>
+<ul>
+  <li>Laissez en <strong>Brouillon</strong>, ou</li>
+  <li>Cliquez sur <span class="btn">Mettre en option</span> et planifiez une
+      relance dans le chatter en bas de l'écran</li>
+</ul>
+
+<p>Quand le client accepte : bouton <span class="btn">Confirmer</span>.</p>
+
+<p>Le dossier passe en état <strong>Confirmé</strong>. Deux choses se font toutes
+seules : un compte analytique est créé pour suivre la rentabilité, et la liste
+des documents à fournir est générée si elle ne l'était pas déjà.</p>
+
+<div class="warn">
+Si le bouton refuse, un message rouge s'affiche en haut. Le plus souvent, il
+manque une prestation dans le dossier.
+</div>
+
+<hr/>
+
+<h2 id="e8">Étape 8 — Générer la commande de vente</h2>
+<span class="menu">Opérations → Ventes</span>
+
+<p>Dans le dossier confirmé, bouton
+<span class="btn">Générer la commande</span>.</p>
+
+<p>Odoo crée une commande de vente contenant toutes vos prestations, sauf celles
+cochées « Hors facture ».</p>
+
+<p>Vous retrouverez cette commande dans
+<strong>Ventes → Réservations</strong>.</p>
+
+<div class="tip">
+Le bouton <strong>Commandes</strong> en haut du dossier ouvre directement toutes
+les commandes liées à ce dossier.
+</div>
+
+<hr/>
+
+<h2 id="e9">Étape 9 — Facturer le client</h2>
+<span class="menu">Ventes</span>
+
+<p>Sur la commande, bouton <span class="btn">Créer une facture</span>, puis
+<strong>Créer et voir la facture</strong>.</p>
+
+<p>Vérifiez les montants, puis bouton <span class="btn">Confirmer</span>.</p>
+
+<p>La facture affiche automatiquement en haut : la référence du dossier, la
+destination, les dates de départ et de retour, et le nom des passagers.</p>
+
+<p>Vous retrouverez la facture dans
+<strong>Ventes → Factures voyage</strong>.</p>
+
+<h3>Facturer un acompte seulement</h3>
+<p>Sur la commande, choisissez <strong>Acompte</strong> au lieu de
+<strong>Facturable</strong> dans la fenêtre qui s'ouvre, puis indiquez le montant
+ou le pourcentage.</p>
+
+<hr/>
+
+<h2 id="e10">Étape 10 — Encaisser le paiement</h2>
+<span class="menu">Ventes</span>
+
+<p>Sur la facture confirmée, bouton <span class="btn">Enregistrer un paiement</span>.</p>
+
+<table>
+  <tr><th style="width:34%">Champ</th><th>Valeur</th></tr>
+  <tr><td>Journal</td><td>Banque ou Espèces</td></tr>
+  <tr><td>Montant</td><td>Ce que le client a versé</td></tr>
+  <tr><td>Date</td><td>Date du versement</td></tr>
+</table>
+
+<p>La facture affiche alors <strong>Partiellement payé</strong> ou
+<strong>Payé</strong>.</p>
+
+<p>Tous les encaissements se retrouvent dans
+<strong>Ventes → Encaissements</strong>.</p>
+
+<p>Pensez à passer l'échéance correspondante en <strong>Encaissé</strong> dans
+l'onglet Échéancier du dossier.</p>
+
+<hr/>
+
+<h2 id="e11">Étape 11 — Commander chez les fournisseurs</h2>
+<span class="menu">Achats</span>
+
+<p><strong>Achats → Commandes fournisseurs</strong>, bouton
+<span class="btn">Nouveau</span>.</p>
+
+<p>Créez une commande par fournisseur, avec les prestations que vous lui achetez.
+Indiquez la référence du dossier dans le champ origine pour retrouver le lien.</p>
+
+<p>Quand le fournisseur envoie sa facture :
+<strong>Achats → Factures fournisseurs</strong> pour l'enregistrer, puis
+<strong>Achats → Règlements</strong> pour la payer.</p>
+
+<div class="warn">
+Dans cette version, les commandes d'achat ne se créent pas automatiquement
+depuis le dossier. C'est une saisie manuelle.
+</div>
+
+<hr/>
+
+<h2 id="e12">Étape 12 — Suivre au quotidien</h2>
+<span class="menu">Tableau de bord + Opérations</span>
+
+<p>Chaque matin, cinq minutes, trois écrans dans cet ordre.</p>
+
+<h3>Le tableau de bord</h3>
+<p><strong>BenAmor Travel → Tableau de bord</strong></p>
+<table>
+  <tr><th style="width:30%">Bloc</th><th>Ce qu'il montre</th></tr>
+  <tr><td>Activité</td><td>Dossiers en cours, en option, départs de la semaine</td></tr>
+  <tr><td>Résultat du mois</td><td>Ventes, coûts, marge, taux de marge</td></tr>
+  <tr><td>Cumul annuel</td><td>Ventes et marge depuis janvier</td></tr>
+  <tr><td>Points de vigilance</td><td>Passeports, échéances en retard, reste à encaisser</td></tr>
+</table>
+<p>Les cases avec un chiffre sont cliquables : elles ouvrent la liste
+correspondante.</p>
+
+<h3>Départs à venir</h3>
+<p><strong>Opérations → Départs à venir</strong></p>
+<p>Les dossiers confirmés qui partent bientôt. Vérifiez que tout est réservé et
+payé.</p>
+
+<h3>Alertes passeports</h3>
+<p><strong>Opérations → Alertes passeports</strong></p>
+<p>Tous les passagers dont le passeport pose problème, tous dossiers confondus.</p>
+
+<div class="warn">
+C'est le contrôle le plus important. Un passager refusé à l'aéroport pour un
+passeport expiré, c'est un client perdu et souvent un remboursement.
+</div>
+
+<hr/>
+
+<h2 id="e13">Étape 13 — Imprimer les documents</h2>
+
+<table>
+  <tr><th style="width:32%">Document</th><th>Où le trouver</th></tr>
+  <tr><td>Voucher client</td>
+      <td>Dossier → Imprimer → Voucher / Fiche dossier</td></tr>
+  <tr><td>Devis</td>
+      <td>Commande → Imprimer</td></tr>
+  <tr><td>Facture</td>
+      <td>Facture → Imprimer</td></tr>
+</table>
+
+<p>Le voucher contient la liste des passagers et le détail des prestations.
+C'est le document à remettre au client avant le départ.</p>
+
+<hr/>
+
+<h2 id="e14">Étape 14 — Clôturer le dossier</h2>
+<span class="menu">Opérations</span>
+
+<p>Quand le voyage est terminé et tout est payé, ouvrez le dossier et cliquez sur
+<span class="btn">Clôturer</span>.</p>
+
+<p>Le dossier sort des listes actives mais reste consultable.</p>
+
+<h3>Si le dossier ne se fait pas</h3>
+<p>Bouton <span class="btn">Annuler</span>.</p>
+<div class="warn">
+Ne supprimez jamais un dossier. L'annulation garde l'historique, la suppression
+le détruit.
+</div>
+
+<hr/>
+
+<h2 id="e15">Étape 15 — Analyser l'activité</h2>
+<span class="menu">Analyse</span>
+<p><em>Réservé aux responsables.</em></p>
+
+<table>
+  <tr><th style="width:36%">Écran</th><th>Ce qu'il donne</th></tr>
+  <tr><td>Analyse des marges</td>
+      <td>Tableau croisé : marge par type de dossier, par mois, par agent, par
+          destination. Vue graphique disponible.</td></tr>
+  <tr><td>Analyse par prestation</td>
+      <td>Quel type de prestation rapporte le plus, quel fournisseur coûte le
+          plus cher</td></tr>
+  <tr><td>Comptes analytiques</td>
+      <td>Un compte par dossier confirmé</td></tr>
+  <tr><td>Écritures analytiques</td>
+      <td>Le détail comptable rattaché à chaque dossier</td></tr>
+</table>
+
+<p>Dans le tableau croisé, changez les lignes et les colonnes avec les boutons
+« + » pour obtenir la vue qui vous intéresse. Bouton d'export pour envoyer vers
+Excel.</p>
+
+<hr/>
+
+<h2 id="e16">Étape 16 — Gagner du temps : les 8 raccourcis</h2>
+
+<p>Une fois le fonctionnement acquis, ces huit fonctions divisent le temps de
+saisie.</p>
+
+<h3>1. Dupliquer un dossier</h3>
+<p>Menu <strong>roue dentée → Dupliquer</strong> en haut du dossier.</p>
+<p>Un client revient pour le même voyage ? Dupliquez son ancien dossier. Les
+prestations, les passagers et l'échéancier sont repris. Le numéro, l'état, les
+PNR et les numéros de billets repartent à zéro.</p>
+
+<h3>2. Créer un modèle de dossier</h3>
+<p><strong>Opérations → Modèles de dossier</strong></p>
+<p>Pour un voyage que vous vendez souvent, créez un modèle une fois : cochez
+« Modèle de dossier », donnez-lui un nom (« Omra 10 jours »), saisissez les
+prestations types.</p>
+<p>Ensuite, bouton <strong>Créer un dossier depuis ce modèle</strong> : un
+dossier neuf apparaît avec toutes les prestations déjà là. Il ne reste qu'à
+mettre le client et les passagers.</p>
+
+<h3>3. Marge cible</h3>
+<p>Saisissez le coût et un taux, le prix de vente se calcule. Détaillé à l'étape
+5.</p>
+
+<h3>4. Limite d'annulation</h3>
+<p>Le champ qui évite de payer pour rien. Détaillé à l'étape 5.</p>
+
+<h3>5. Quantité automatique</h3>
+<p>Plus besoin de compter les passagers. Détaillé à l'étape 5.</p>
+
+<h3>6. Checklist documents</h3>
+<p>La liste de ce qu'il faut réclamer au client. Détaillé à l'étape 6.</p>
+
+<h3>7. Passager déjà connu</h3>
+<p>Renseignez le contact, les documents se remplissent. Détaillé à l'étape 4.</p>
+
+<h3>8. Profil voyageur</h3>
+<p><strong>Contacts → Voyageurs</strong>, ou ouvrez une fiche client et cliquez
+sur l'onglet <strong>Voyageur</strong>.</p>
+<p>Vous y trouvez ses documents de voyage, le nombre de voyages qu'il a faits
+avec vous, la date du dernier, et ses préférences (siège, repas, remarques).</p>
+<p>Le bouton <strong>Dossiers</strong> en haut de sa fiche ouvre tous ses
+voyages, qu'il ait été le payeur ou simplement un passager.</p>
+
+<hr/>
+
+<h2>Récapitulatif : où faire quoi</h2>
+
+<table>
+  <tr><th style="width:32%">Menu</th><th>Ce qu'on y fait</th></tr>
+  <tr><td><strong>Tableau de bord</strong></td>
+      <td>Voir ses chiffres et ses alertes</td></tr>
+  <tr><td><strong>Opérations</strong></td>
+      <td>Dossiers, passagers, documents manquants, prestations, modèles</td></tr>
+  <tr><td><strong>Ventes</strong></td>
+      <td>Commandes, factures clients, encaissements</td></tr>
+  <tr><td><strong>Achats</strong></td>
+      <td>Commandes, factures fournisseurs, règlements</td></tr>
+  <tr><td><strong>Contacts</strong></td>
+      <td>Clients, fournisseurs, voyageurs</td></tr>
+  <tr><td><strong>Analyse</strong></td>
+      <td>Statistiques et rentabilité</td></tr>
+  <tr><td><strong>Aide</strong></td>
+      <td>Ce guide</td></tr>
+  <tr><td><strong>Configuration</strong></td>
+      <td>Devises, articles, destinations, hôtels, compagnies, types de documents</td></tr>
+</table>
+
+<h2>Les 6 erreurs les plus fréquentes</h2>
+
+<table>
+  <tr><th style="width:44%">Erreur</th><th>Conséquence</th></tr>
+  <tr><td>Oublier le coût d'achat</td>
+      <td>La marge affichée est fausse</td></tr>
+  <tr><td>Convertir les devises à la main</td>
+      <td>Erreur de calcul sur la marge</td></tr>
+  <tr><td>Oublier de saisir les passagers</td>
+      <td>Voucher et facture sans nom de voyageur</td></tr>
+  <tr><td>Confirmer sans vérifier les passeports</td>
+      <td>Problème découvert à l'aéroport</td></tr>
+  <tr><td>Facturer sans passer par un dossier</td>
+      <td>Aucun suivi de marge ni de passagers</td></tr>
+  <tr><td>Quitter l'écran sans cliquer sur le nuage</td>
+      <td>Perte de la saisie</td></tr>
+  <tr><td>Oublier la date limite d'annulation</td>
+      <td>Prestation payée alors que le client a annulé</td></tr>
+</table>
+
+<p style="color:#888; font-size:14px; text-align:center; margin-top:44px;">
+Guide complet — BenAmor Travel pour Odoo 19
+</p>
+
+</body>
+</html>

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="travel_dashboard_view_form" model="ir.ui.view">
+        <field name="name">travel.dashboard.form</field>
+        <field name="model">travel.dashboard</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false" delete="false">
+                <style>
+                    /* Pro Cockpit SaaS CSS */
+                    .cockpit-bg { background-color: #f7f9fc; padding: 25px; min-height: 100vh; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+                    .c-card { background: #ffffff; border-radius: 12px; padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); border: 1px solid #edf2f9; margin-bottom: 24px; }
+                    .c-card-header { font-size: 16px; font-weight: 700; color: #12263f; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #edf2f9; padding-bottom: 10px; }
+                    
+                    /* Buttons */
+                    .c-btn-primary { background-color: #0d6efd; color: white; border-radius: 8px; padding: 12px 20px; border: none; font-weight: 600; text-align: left; transition: all 0.2s; }
+                    .c-btn-primary:hover { background-color: #0b5ed7; color: white; transform: translateY(-1px); box-shadow: 0 4px 10px rgba(13,110,253,0.3); }
+                    .c-btn-outline { background-color: transparent; color: #495057; border-radius: 8px; padding: 12px 20px; border: 1px solid #dee2e6; font-weight: 600; text-align: left; transition: all 0.2s; }
+                    .c-btn-outline:hover { background-color: #f8f9fa; color: #0d6efd; border-color: #0d6efd; }
+                    
+                    /* Pillars */
+                    .c-pillar { display: flex; align-items: center; }
+                    .c-pillar-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-right: 15px; }
+                    .c-pillar-content { flex: 1; }
+                    .c-pillar-label { font-size: 13px; font-weight: 600; color: #6e84a3; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+                    .c-pillar-value { font-size: 24px; font-weight: 800; color: #12263f; line-height: 1.2; }
+                    
+                    /* Colors */
+                    .bg-blue-light { background-color: #e0f2fe; color: #0284c7; }
+                    .bg-green-light { background-color: #dcfce7; color: #16a34a; }
+                    .bg-purple-light { background-color: #f3e8ff; color: #9333ea; }
+                    .bg-orange-light { background-color: #ffedd5; color: #ea580c; }
+                    .text-success-custom { color: #10b981 !important; }
+                    
+                    /* Alerts */
+                    .c-alert { padding: 15px; border-radius: 10px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: all 0.2s; border: 1px solid transparent; }
+                    .c-alert:hover { transform: scale(1.01); }
+                    .c-alert-danger { background-color: #fef2f2; border-color: #fecaca; color: #991b1b; }
+                    .c-alert-warning { background-color: #fffbeb; border-color: #fde68a; color: #92400e; }
+                    .c-alert-info { background-color: #f0fdfa; border-color: #ccfbf1; color: #115e59; }
+                    
+                    /* Remove Odoo margins */
+                    .o_form_view .o_form_sheet_bg { padding: 0 !important; background: transparent !important; }
+                    .o_form_view .o_form_sheet { padding: 0 !important; max-width: 100% !important; background: transparent !important; border: none !important; }
+                </style>
+                
+                <div class="cockpit-bg container-fluid">
+                    <!-- HEADER & QUICK ACTIONS -->
+                    <div class="row mb-4 align-items-center">
+                        <div class="col-md-6">
+                            <h2 style="font-weight: 800; color: #12263f; margin: 0;">Cockpit de Pilotage</h2>
+                            <p style="color: #6e84a3; margin: 0;">Vue d'ensemble de l'agence de voyage</p>
+                        </div>
+                        <div class="col-md-6 text-right d-flex justify-content-end gap-2" style="gap: 10px;">
+                            <button name="action_new_partner" type="object" class="c-btn-outline">
+                                <i class="fa fa-user-plus mr-2"></i> Client
+                            </button>
+                            <button name="action_new_service" type="object" class="c-btn-outline">
+                                <i class="fa fa-cogs mr-2"></i> Service
+                            </button>
+                            <button name="action_new_file" type="object" class="c-btn-primary">
+                                <i class="fa fa-plus-circle mr-2"></i> Nouveau Dossier
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- LES 4 PILIERS (KPI) -->
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6">
+                            <div class="c-card c-pillar">
+                                <div class="c-pillar-icon bg-blue-light"><i class="fa fa-folder-open"></i></div>
+                                <div class="c-pillar-content">
+                                    <div class="c-pillar-label">Dossiers Actifs</div>
+                                    <div class="c-pillar-value"><field name="file_open_count"/></div>
+                                </div>
+                                <button name="action_open_files" type="object" class="btn btn-sm btn-link text-muted"><i class="fa fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="c-card c-pillar">
+                                <div class="c-pillar-icon bg-orange-light"><i class="fa fa-users"></i></div>
+                                <div class="c-pillar-content">
+                                    <div class="c-pillar-label">Voyageurs (Ce mois)</div>
+                                    <div class="c-pillar-value"><field name="current_month_passenger_count"/></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="c-card c-pillar">
+                                <div class="c-pillar-icon bg-purple-light"><i class="fa fa-credit-card"></i></div>
+                                <div class="c-pillar-content">
+                                    <div class="c-pillar-label">CA (Ce mois)</div>
+                                    <div class="c-pillar-value"><field name="month_sale"/></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="c-card c-pillar">
+                                <div class="c-pillar-icon bg-green-light"><i class="fa fa-line-chart"></i></div>
+                                <div class="c-pillar-content">
+                                    <div class="c-pillar-label">Marge Globale</div>
+                                    <div class="c-pillar-value text-success-custom"><field name="month_margin"/></div>
+                                </div>
+                                <button name="action_open_margin_analysis" type="object" class="btn btn-sm btn-link text-muted"><i class="fa fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ZONES D'EXPLOITATION & CONTRÔLE -->
+                    <div class="row mt-2">
+                        <!-- ZONE GAUCHE : OPÉRATIONS -->
+                        <div class="col-lg-7">
+                            
+                            <!-- Prochains Départs -->
+                            <div class="c-card">
+                                <div class="c-card-header">
+                                    <span><i class="fa fa-plane text-primary mr-2"></i> Prochains Départs (30 jours)</span>
+                                </div>
+                                <field name="upcoming_departure_ids" readonly="1">
+                                    <list>
+                                        <field name="date_departure" string="Date" class="font-weight-bold"/>
+                                        <field name="name" string="Dossier"/>
+                                        <field name="partner_id" string="Client"/>
+                                        <field name="destination_id" string="Destination"/>
+                                        <field name="passenger_count" string="Pax"/>
+                                    </list>
+                                </field>
+                            </div>
+
+                            <!-- Dossiers en Option -->
+                            <div class="c-card">
+                                <div class="c-card-header">
+                                    <span><i class="fa fa-clock-o text-warning mr-2"></i> Devis / Options à Relancer</span>
+                                    <button name="action_open_options" type="object" class="btn btn-sm btn-light">Voir tout</button>
+                                </div>
+                                <field name="option_file_ids" readonly="1">
+                                    <list decoration-warning="state=='option'">
+                                        <field name="date_open" string="Créé le"/>
+                                        <field name="name" string="Dossier" class="font-weight-bold"/>
+                                        <field name="partner_id" string="Client"/>
+                                        <field name="amount_sale" string="Montant" sum="Total"/>
+                                        <field name="state" column_invisible="1"/>
+                                    </list>
+                                </field>
+                            </div>
+
+                        </div>
+
+                        <!-- ZONE DROITE : CONTRÔLE & FINANCES -->
+                        <div class="col-lg-5">
+                            
+                            <!-- Radar des Alertes -->
+                            <div class="c-card" style="background-color: #fafbfc;">
+                                <div class="c-card-header">
+                                    <span><i class="fa fa-shield text-danger mr-2"></i> Radar des Urgences</span>
+                                </div>
+                                
+                                <button name="action_open_passport_alerts" type="object" class="c-alert c-alert-danger w-100 text-left border-0">
+                                    <div>
+                                        <strong style="color: inherit; font-size: 15px;"><i class="fa fa-id-card-o mr-1"></i> Contrôle Passeports &amp; Visas</strong><br/>
+                                        <span style="opacity: 0.8; font-size: 13px;">Documents expirés ou manquants sur les départs</span>
+                                    </div>
+                                    <h3 class="m-0 font-weight-bold" style="color: inherit;"><field name="passport_alert_count"/></h3>
+                                </button>
+
+                                <button name="action_open_late_payments" type="object" class="c-alert c-alert-warning w-100 text-left border-0">
+                                    <div>
+                                        <strong style="color: inherit; font-size: 15px;"><i class="fa fa-money mr-1"></i> Retards de Paiement</strong><br/>
+                                        <span style="opacity: 0.8; font-size: 13px;"><field name="payment_late_amount"/> en souffrance</span>
+                                    </div>
+                                    <h3 class="m-0 font-weight-bold" style="color: inherit;"><field name="payment_late_count"/></h3>
+                                </button>
+
+                                <button name="action_open_departures_week" type="object" class="c-alert c-alert-info w-100 text-left border-0">
+                                    <div>
+                                        <strong style="color: inherit; font-size: 15px;"><i class="fa fa-calendar-check-o mr-1"></i> Départs très proches</strong><br/>
+                                        <span style="opacity: 0.8; font-size: 13px;">Clients voyageant dans moins de 7 jours</span>
+                                    </div>
+                                    <h3 class="m-0 font-weight-bold" style="color: inherit;"><field name="departure_week_count"/></h3>
+                                </button>
+                            </div>
+
+                            <!-- Résumé Financier Annuel -->
+                            <div class="c-card">
+                                <div class="c-card-header">
+                                    <span><i class="fa fa-bar-chart text-success mr-2"></i> Bilan Annuel</span>
+                                </div>
+                                <div class="p-2">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <span style="color: #6e84a3; font-weight: 600;">Ventes Cumulées</span>
+                                        <span style="font-size: 18px; font-weight: 800; color: #12263f;"><field name="year_sale"/></span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <span style="color: #6e84a3; font-weight: 600;">Marge Nette (Année)</span>
+                                        <span style="font-size: 18px; font-weight: 800; color: #10b981;"><field name="year_margin"/></span>
+                                    </div>
+                                    <div class="progress" style="height: 8px;">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action pour ouvrir le dashboard -->
+    <record id="action_travel_dashboard" model="ir.actions.server">
+        <field name="name">Tableau de bord</field>
+        <field name="model_id" ref="model_travel_dashboard"/>
+        <field name="state">code</field>
+        <field name="code">
+dashboard = env['travel.dashboard'].search([], limit=1)
+if not dashboard:
+    dashboard = env['travel.dashboard'].create({})
+action = {
+    'type': 'ir.actions.act_window',
+    'name': 'Tableau de bord',
+    'res_model': 'travel.dashboard',
+    'res_id': dashboard.id,
+    'view_mode': 'form',
+    'target': 'current',
+}
+        </field>
+    </record>
+</odoo>
