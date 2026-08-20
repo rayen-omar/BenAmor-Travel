@@ -41,7 +41,7 @@ class TravelPhoto(models.Model):
 class TravelFacility(models.Model):
     _name = "travel.facility"
     _description = "Hotel Service and Facility"
-    _order = "sequence, id"
+    _order = "id"
 
     hotel_id = fields.Many2one(
         "travel.hotel",

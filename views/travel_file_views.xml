@@ -77,29 +77,29 @@
                         <h1><field name="name" readonly="1"
                                    invisible="is_template"/>
                             <field name="template_name" placeholder="Nom du modele"
-                                   invisible="not is_template"/></h1>
+                                   invisible="not is_template" readonly="state == 'confirmed'"/></h1>
                     </div>
                     <group>
                         <group>
-                            <field name="is_template"/>
+                            <field name="is_template" readonly="state == 'confirmed'"/>
                             <field name="partner_id"
                                    required="not is_template"
-                                   invisible="is_template"/>
-                            <field name="file_type"/>
-                            <field name="destination_id"/>
-                            <field name="user_id" widget="many2one_avatar_user"/>
+                                   invisible="is_template" readonly="state == 'confirmed'"/>
+                            <field name="file_type" readonly="state == 'confirmed'"/>
+                            <field name="destination_id" readonly="state == 'confirmed'"/>
+                            <field name="user_id" widget="many2one_avatar_user" readonly="state == 'confirmed'"/>
                         </group>
                         <group>
-                            <field name="date_open"/>
-                            <field name="date_departure"/>
-                            <field name="date_return"/>
+                            <field name="date_open" readonly="state == 'confirmed'"/>
+                            <field name="date_departure" readonly="state == 'confirmed'"/>
+                            <field name="date_return" readonly="state == 'confirmed'"/>
                             <field name="analytic_account_id" readonly="1"
-                                   invisible="not analytic_account_id"/>
+                                   invisible="not analytic_account_id" />
                             <field name="next_deadline" readonly="1"
-                                   invisible="not next_deadline"/>
-                            <field name="company_id" groups="base.group_multi_company"/>
+                                   invisible="not next_deadline" />
+                            <field name="company_id" groups="base.group_multi_company" readonly="state == 'confirmed'"/>
                             <field name="currency_id" invisible="1"/>
-                            <field name="facilitate"/>
+                            <field name="facilitate" readonly="state == 'confirmed'"/>
                         </group>
                     </group>
                     <notebook>
@@ -109,7 +109,7 @@
                                     <label for="target_margin_rate"/>
                                     <div>
                                         <field name="target_margin_rate"
-                                               class="oe_inline"/> %
+                                               class="oe_inline" readonly="state == 'confirmed'"/> %
                                         <button name="action_apply_target_margin"
                                                 type="object" string="Appliquer"
                                                 class="btn-link"
@@ -125,7 +125,7 @@
                                     </div>
                                 </group>
                             </group>
-                            <field name="service_ids" context="{'default_file_id': id}">
+                            <field name="service_ids" context="{'default_file_id': id}" readonly="state == 'confirmed'">
                                 <list editable="bottom"
                                       decoration-danger="deadline_state == 'passed'"
                                       decoration-warning="deadline_state == 'soon'">
@@ -153,16 +153,16 @@
                                 </list>
                             </field>
                             <group class="oe_subtotal_footer oe_right">
-                                <field name="amount_sale"/>
-                                <field name="amount_cost"/>
-                                <field name="discount"/>
+                                <field name="amount_sale" readonly="state == 'confirmed'"/>
+                                <field name="amount_cost" readonly="state == 'confirmed'"/>
+                                <field name="discount" readonly="state == 'confirmed'"/>
                                 <field name="total_discount"/>
-                                <field name="margin" class="oe_subtotal_footer_separator"/>
-                                <field name="margin_rate" widget="percentage"/>
+                                <field name="margin" class="oe_subtotal_footer_separator" readonly="state == 'confirmed'"/>
+                                <field name="margin_rate" widget="percentage" readonly="state == 'confirmed'"/>
                             </group>
                         </page>
                         <page string="Voyageurs" name="passengers">
-                            <field name="passenger_ids" context="{'default_file_id': id}">
+                            <field name="passenger_ids" context="{'default_file_id': id}" readonly="state == 'confirmed'">
                                 <list editable="bottom"
                                       decoration-danger="passport_state == 'expired'"
                                       decoration-warning="passport_state == 'warning'">
@@ -183,17 +183,17 @@
                         <page string="Reservation" name="reservation">
                             <group>
                                 <group>
-                                    <field name="room_type"/>
-                                    <field name="number_of_rooms"/>
-                                    <field name="room_number"/>
-                                    <field name="room_view"/>
-                                    <field name="number_of_nights"/>
+                                    <field name="room_type" readonly="state == 'confirmed'"/>
+                                    <field name="number_of_rooms" readonly="state == 'confirmed'"/>
+                                    <field name="room_number" readonly="state == 'confirmed'"/>
+                                    <field name="room_view" readonly="state == 'confirmed'"/>
+                                    <field name="number_of_nights" readonly="state == 'confirmed'"/>
                                 </group>
                                 <group>
-                                    <field name="flight_type"/>
-                                    <field name="flight_class"/>
-                                    <field name="with_baggage"/>
-                                    <field name="direct_flight"/>
+                                    <field name="flight_type" readonly="state == 'confirmed'"/>
+                                    <field name="flight_class" readonly="state == 'confirmed'"/>
+                                    <field name="with_baggage" readonly="state == 'confirmed'"/>
+                                    <field name="direct_flight" readonly="state == 'confirmed'"/>
 
                                 </group>
                             </group>
@@ -201,7 +201,7 @@
 
                         </page>
                         <page string="Echeancier" name="payment_plan">
-                            <field name="payment_plan_ids" context="{'default_file_id': id}">
+                            <field name="payment_plan_ids" context="{'default_file_id': id}" readonly="state == 'confirmed'">
                                 <list editable="bottom">
                                     <field name="name"/>
                                     <field name="date_due"/>
@@ -216,7 +216,7 @@
                             <button name="action_generate_documents" type="object"
                                     string="Generer la liste des documents"
                                     class="btn-link mb-2"/>
-                            <field name="document_ids" context="{'default_file_id': id}">
+                            <field name="document_ids" context="{'default_file_id': id}" readonly="state == 'confirmed'">
                                 <list editable="bottom"
                                       decoration-warning="state == 'todo'"
                                       decoration-success="state == 'received'">
@@ -231,7 +231,7 @@
                             </field>
                         </page>
                         <page string="Notes" name="notes">
-                            <field name="note"/>
+                            <field name="note" readonly="state == 'confirmed'"/>
                         </page>
                     </notebook>
                 </sheet>

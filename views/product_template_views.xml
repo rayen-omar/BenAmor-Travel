@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="product_template_form_travel_inherit" model="ir.ui.view">
+        <field name="name">product.template.form.travel</field>
+        <field name="model">product.template</field>
+
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+
+        <field name="arch" type="xml">
+
+            <xpath expr="//notebook" position="inside">
+
+                <!-- ================================================= -->
+                <!-- PHOTOS -->
+                <!-- ================================================= -->
+
+                <page string="Photos" name="travel_photos">
+
+                    <field name="photo_ids">
+
+                        <kanban>
+
+                            <field name="image"/>
+
+                            <templates>
+
+                                <t t-name="card">
+
+                                    <div class="oe_kanban_global_click">
+
+                                        <div class="text-center">
+
+                                            <field
+                                                name="image"
+                                                widget="image"
+                                                class="oe_avatar"
+                                            />
+
+                                        </div>
+
+                                    </div>
+
+                                </t>
+
+                            </templates>
+
+                        </kanban>
+
+                    </field>
+
+                </page>
+
+
+                <!-- ================================================= -->
+                <!-- SERVICES & ÉQUIPEMENTS -->
+                <!-- ================================================= -->
+
+                <page
+                    string="Services &amp; équipements"
+                    name="travel_equipment"
+                >
+                    <field name="equipment_ids">
+
+                        <list editable="bottom">
+
+                            <field name="name"/>
+                            <field name="icon"/>
+
+                        </list>
+
+                    </field>
+
+                </page>
+
+
+                <!-- ================================================= -->
+                <!-- CARTE -->
+                <!-- ================================================= -->
+
+                <page string="Carte" name="travel_map">
+
+                    <group>
+
+                        <group string="Localisation">
+
+                            <field name="country_id"/>
+                            <field name="city"/>
+
+                            <field name="latitude"/>
+                            <field name="longitude"/>
+
+                        </group>
+
+                        <group string="Google Maps">
+
+                            <field
+                                name="map_url"
+                                widget="url"
+                                readonly="1"
+                            />
+
+                        </group>
+
+                    </group>
+
+                </page>
+
+            </xpath>
+
+        </field>
+
+    </record>
+
+</odoo>

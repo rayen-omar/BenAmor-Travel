@@ -91,4 +91,43 @@
     <menuitem id="menu_travel_currency" name="Devises et taux"
               parent="menu_travel_config_account" action="action_travel_currency" sequence="30"/>
 
+        <menuitem
+        id="menu_travel_flight_flexibility"
+        name="Flexibilité des vols"
+        parent="menu_travel_config"
+        action="action_travel_flight_flexibility"
+        sequence="40"
+    />
+
+    <menuitem
+        id="menu_room_view"
+        name="Vues des chambres"
+        parent="menu_travel_config"
+        action="action_room_view"
+        sequence="50"
+    />
+
+    <menuitem
+        id="menu_travel_facilitate"
+        name="Facilités"
+        parent="menu_travel_config"
+        action="action_travel_facilitate"
+        sequence="60"
+    />
+
+    <menuitem
+        id="menu_travel_facility"
+        name="Services &amp; équipements"
+        parent="menu_travel_config"
+        action="action_travel_facility"
+        sequence="70"
+    />
+
+    <menuitem
+        id="menu_travel_photo"
+        name="Photos"
+        parent="menu_travel_config"
+        action="action_travel_photo"
+        sequence="80"
+    />
 </odoo>

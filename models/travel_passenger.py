@@ -62,7 +62,7 @@ class TravelPassenger(models.Model):
         compute='_compute_is_tunisian'
     )
 
-    @api.depends('travel_nationality_id')
+    @api.depends('nationality_id')
     def _compute_is_tunisian(self):
         for record in self:
             record.is_tunisian = (

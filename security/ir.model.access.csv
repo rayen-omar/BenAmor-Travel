@@ -14,3 +14,8 @@ access_travel_dashboard_user,travel.dashboard.user,model_travel_dashboard,group_
 access_travel_document_user,travel.document.user,model_travel_document,group_travel_user,1,1,1,1
 access_travel_document_type_user,travel.document.type.user,model_travel_document_type,group_travel_user,1,0,0,0
 access_travel_document_type_manager,travel.document.type.manager,model_travel_document_type,group_travel_manager,1,1,1,1
+access_travel_facility,travel.facility,model_travel_facility,group_travel_manager,1,1,1,1
+access_travel_photo,travel.photo,model_travel_photo,group_travel_manager,1,1,1,1
+access_travel_facilitate,travel.facilitate,model_travel_facilitate,group_travel_manager,1,1,1,1
+access_travel_room_view,room.view,model_room_view,group_travel_manager,1,1,1,1
+access_travel_flight_flexibility,travel.flight.flexibility,model_travel_flight_flexibility,group_travel_manager,1,1,1,1
