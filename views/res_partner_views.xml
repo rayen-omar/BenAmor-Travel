@@ -21,6 +21,7 @@
                             <field name="travel_birthdate"/>
                             <field name="travel_nationality_id"/>
                             <field name="travel_is_tunisian" invisible="1"/>
+                            <field name="travel_cin_number" invisible="not travel_is_tunisian"/>
                             <field name="travel_passport_number"/>
                             <field name="travel_passport_expiry"/>
                         </group>
