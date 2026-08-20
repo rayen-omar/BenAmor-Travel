@@ -44,7 +44,7 @@ class TravelFacility(models.Model):
     _order = "id"
 
     hotel_id = fields.Many2one(
-        "travel.hotel",
+        "product.template",
         string="Hotel",
         required=True,
         ondelete="cascade",
@@ -55,7 +55,7 @@ class TravelFacility(models.Model):
         required=True,
     )
 
-    icon = fields.Char(
+    icon = fields.Binary(
         string="Icône",
         help="Nom de l'icône Font Awesome, par exemple fa-wifi.",
     )
