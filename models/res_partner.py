@@ -12,7 +12,6 @@ class ResPartner(models.Model):
     travel_birthdate = fields.Date(string="Date de naissance")
     travel_nationality_id = fields.Many2one("res.country", string="Nationalite")
     travel_passport_number = fields.Char(string="N. Passeport")
-    travel_cin_number = fields.Char(string="N. Cin")
     travel_passport_expiry = fields.Date(string="Expiration passeport")
     travel_note = fields.Text(
         string="Preferences de voyage",

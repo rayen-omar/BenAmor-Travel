@@ -98,7 +98,7 @@ class TravelPassenger(models.Model):
         self.birthdate = self.birthdate or p.travel_birthdate
         self.nationality_id = self.nationality_id or p.travel_nationality_id
         self.passport_number = self.passport_number or p.travel_passport_number
-        self.cin_number = self.cin_number or p.travel_cin_number
+        self.cin_number = self.cin_number
         self.passport_expiry = self.passport_expiry or p.travel_passport_expiry
 
     def _sync_to_partner(self):
