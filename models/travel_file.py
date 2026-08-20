@@ -60,7 +60,7 @@ class TravelFile(models.Model):
     date_open = fields.Date(string="Date ouverture", default=fields.Date.context_today)
     date_departure = fields.Date(string="Départ Prévu", tracking=True)
     date_return = fields.Date(string="Retour Prévu")
-    destination_id = fields.Many2one("travel.destination", string="Destination")
+    destination_id = fields.Many2one("product.template", string="Destination")
 
     service_ids = fields.One2many("travel.service", "file_id", string="Services Inclus")
     passenger_ids = fields.One2many("travel.passenger", "file_id", string="Liste des Voyageurs")
@@ -96,11 +96,15 @@ class TravelFile(models.Model):
         string="Taux de marge (%)", compute="_compute_amounts", store=True
     )
     discount = fields.Monetary(
-        string="Discount",
+        string="Remise",
         currency_field="currency_id",
         tracking=True,
     )
-
+    invoice_id = fields.Many2one(
+        "account.move",
+        string="Facture",
+        copy=False,
+    )
     total_discount = fields.Monetary(
         string="Totale avec remise",
         currency_field="currency_id",
@@ -171,9 +175,9 @@ class TravelFile(models.Model):
         compute="_compute_number_of_nights",
         store=True,
     )
-    board_type = fields.Selection[("petit_dejeuner","Petit Dejeuner")
-                                  ("demi_pension","Demi Pension")
-                                  ("pension_complete","Pension Complete")]
+    board_type = fields.Selection([("petit_dejeuner","Petit Dejeuner"),
+                                  ("demi_pension","Demi Pension"),
+                                  ("pension_complete","Pension Complete")])
 
     # =========================================================
     # FLIGHT
@@ -231,10 +235,14 @@ class TravelFile(models.Model):
     @api.depends("date_departure", "date_return")
     def _compute_number_of_nights(self):
         for record in self:
+            print("dddddddddd")
             if record.date_departure and record.date_return:
-                delta = record.date_departure - record.date_return
+                print("ggggggggggg")
+                delta = record.date_return - record.date_departure
+                print("delta",delta)
                 record.number_of_nights = max(delta.days, 0)
             else:
+                print("srgggfg")
                 record.number_of_nights = 0
 
     @api.depends("service_ids.sale_subtotal", "service_ids.cost_company")
@@ -407,59 +415,6 @@ class TravelFile(models.Model):
     def action_option(self):
         self.write({"state": "option"})
 
-    def _create_invoice(self):
-        self.ensure_one()
-
-        if self.invoice_id:
-            return self.invoice_id
-
-        invoice_lines = []
-
-        for service in self.service_ids:
-            if not service.product_id:
-                raise UserError(
-                    _("La prestation %s n'a pas de produit.")
-                    % service.name
-                )
-
-            invoice_lines.append(
-                (
-                    0,
-                    0,
-                    {
-                        "product_id": service.product_id.id,
-                        "name": service.description or service.name,
-                        "quantity": service.quantity,
-                        "price_unit": service.sale_price,
-                        "discount": service.discount,
-                        "account_id": (
-                                service.product_id.property_account_income_id.id
-                                or service.product_id.categ_id.property_account_income_categ_id.id
-                        ),
-                    },
-                )
-            )
-
-        if not invoice_lines:
-            raise UserError(
-                _("Impossible de créer une facture sans lignes.")
-            )
-
-        invoice = self.env["account.move"].create(
-            {
-                "move_type": "out_invoice",
-                "partner_id": self.partner_id.id,
-                "invoice_date": fields.Date.context_today(self),
-                "currency_id": self.currency_id.id,
-                "travel_file_id": self.id,
-                "invoice_line_ids": invoice_lines,
-            }
-        )
-
-        self.invoice_id = invoice.id
-
-        return invoice
-
     def action_confirm(self):
         for rec in self:
             if rec.is_template:
@@ -474,8 +429,7 @@ class TravelFile(models.Model):
                 )
             rec.state = "confirmed"
             rec.action_generate_documents()
-            # Création de la facture
-            rec._create_invoice()
+
 
     def action_done(self):
         self.write({"state": "done"})

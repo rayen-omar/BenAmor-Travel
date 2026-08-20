@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- TRAVEL FLIGHT FLEXIBILITY -->
+    <!-- ========================================================= -->
+
+    <record id="view_travel_flight_flexibility_tree" model="ir.ui.view">
+        <field name="name">travel.flight.flexibility.tree</field>
+        <field name="model">travel.flight.flexibility</field>
+        <field name="arch" type="xml">
+            <list string="Flexibilité des vols">
+                <field name="name"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_travel_flight_flexibility_form" model="ir.ui.view">
+        <field name="name">travel.flight.flexibility.form</field>
+        <field name="model">travel.flight.flexibility</field>
+        <field name="arch" type="xml">
+            <form string="Flexibilité du vol">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_travel_flight_flexibility" model="ir.actions.act_window">
+        <field name="name">Flexibilité des vols</field>
+        <field name="res_model">travel.flight.flexibility</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+
+    <!-- ========================================================= -->
+    <!-- ROOM VIEW -->
+    <!-- ========================================================= -->
+
+    <record id="view_room_view_tree" model="ir.ui.view">
+        <field name="name">room.view.tree</field>
+        <field name="model">room.view</field>
+        <field name="arch" type="xml">
+            <list string="Vues des chambres">
+                <field name="name"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_room_view_form" model="ir.ui.view">
+        <field name="name">room.view.form</field>
+        <field name="model">room.view</field>
+        <field name="arch" type="xml">
+            <form string="Vue de chambre">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_room_view" model="ir.actions.act_window">
+        <field name="name">Vues des chambres</field>
+        <field name="res_model">room.view</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+
+    <!-- ========================================================= -->
+    <!-- TRAVEL FACILITATE -->
+    <!-- ========================================================= -->
+
+    <record id="view_travel_facilitate_tree" model="ir.ui.view">
+        <field name="name">travel.facilitate.tree</field>
+        <field name="model">travel.facilitate</field>
+        <field name="arch" type="xml">
+            <list string="Facilités">
+                <field name="name"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_travel_facilitate_form" model="ir.ui.view">
+        <field name="name">travel.facilitate.form</field>
+        <field name="model">travel.facilitate</field>
+        <field name="arch" type="xml">
+            <form string="Facilité">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_travel_facilitate" model="ir.actions.act_window">
+        <field name="name">Facilités</field>
+        <field name="res_model">travel.facilitate</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+
+    <!-- ========================================================= -->
+    <!-- TRAVEL FACILITY -->
+    <!-- ========================================================= -->
+
+    <record id="view_travel_facility_tree" model="ir.ui.view">
+        <field name="name">travel.facility.tree</field>
+        <field name="model">travel.facility</field>
+        <field name="arch" type="xml">
+            <list string="Services &amp; équipements">
+
+                <field name="name"/>
+                <field name="icon"/>
+                <field name="hotel_id"/>
+
+            </list>
+        </field>
+    </record>
+
+    <record id="view_travel_facility_form" model="ir.ui.view">
+        <field name="name">travel.facility.form</field>
+        <field name="model">travel.facility</field>
+        <field name="arch" type="xml">
+            <form string="Service &amp; équipement">
+
+                <sheet>
+
+                    <group>
+
+                        <field name="hotel_id"/>
+                        <field name="name"/>
+                        <field name="icon"/>
+
+                    </group>
+
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="action_travel_facility" model="ir.actions.act_window">
+        <field name="name">Services &amp; équipements</field>
+        <field name="res_model">travel.facility</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+
+    <!-- ========================================================= -->
+    <!-- TRAVEL PHOTO -->
+    <!-- ========================================================= -->
+
+    <record id="view_travel_photo_tree" model="ir.ui.view">
+        <field name="name">travel.photo.tree</field>
+        <field name="model">travel.photo</field>
+        <field name="arch" type="xml">
+
+            <list string="Photos">
+
+                <field name="product_id"/>
+                <field name="image" widget="image"/>
+
+            </list>
+
+        </field>
+    </record>
+
+    <record id="view_travel_photo_form" model="ir.ui.view">
+        <field name="name">travel.photo.form</field>
+        <field name="model">travel.photo</field>
+        <field name="arch" type="xml">
+
+            <form string="Photo">
+
+                <sheet>
+
+                    <group>
+
+                        <field name="product_id"/>
+
+                    </group>
+
+                    <group>
+
+                        <field
+                            name="image"
+                            widget="image"
+                            class="oe_avatar"
+                        />
+
+                    </group>
+
+                </sheet>
+
+            </form>
+
+        </field>
+    </record>
+
+    <record id="action_travel_photo" model="ir.actions.act_window">
+        <field name="name">Photos</field>
+        <field name="res_model">travel.photo</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

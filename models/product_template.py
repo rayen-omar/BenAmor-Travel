@@ -12,6 +12,8 @@ class ProductTemplate(models.Model):
         string="Longitude",
         digits=(10, 7),
     )
+    country_id = fields.Many2one("res.country", string="Pays")
+    city = fields.Char(string="Ville")
 
     map_url = fields.Char(
         string="Google Maps",
@@ -24,7 +26,7 @@ class ProductTemplate(models.Model):
         string="Photos",
     )
     equipment_ids = fields.Many2many(
-    "travel.hotel.facility",
+    "travel.facility",
     "product_facility_rel",
     "product_tmpl_id",
     "facility_id",
