@@ -36,6 +36,8 @@
                             <field name="nationality_id"/>
                         </group>
                         <group>
+                            <field name="is_tunisian" invisible="1"/>
+                            <field name="cin_number" invisible="not is_tunisian"/>
                             <field name="passport_number"/>
                             <field name="passport_expiry"/>
                             <field name="passport_state" readonly="1"/>

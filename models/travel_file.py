@@ -19,9 +19,11 @@ class TravelFile(models.Model):
     file_type = fields.Selection(
         [
             ("ticket", "Billetterie"),
+            ("hotel", "Hotel"),
             ("package", "Sejour / Circuit"),
             ("omra", "Omra / Hajj"),
             ("visa", "Visa"),
+            ("vol", "Vol"),
             ("b2b", "B2B agence"),
             ("other", "Autre"),
         ],
@@ -50,7 +52,11 @@ class TravelFile(models.Model):
     template_name = fields.Char(
         string="Nom du modele", help="Exemple : Omra 10 jours, Istanbul 7 nuits"
     )
-
+    invoice_ids = fields.One2many(
+        "account.move",
+        "travel_file_id",
+        string="Factures",
+    )
     date_open = fields.Date(string="Date ouverture", default=fields.Date.context_today)
     date_departure = fields.Date(string="Départ Prévu", tracking=True)
     date_return = fields.Date(string="Retour Prévu")
@@ -72,7 +78,9 @@ class TravelFile(models.Model):
     )
     sale_order_ids = fields.One2many("sale.order", "travel_file_id", string="Commandes")
     sale_order_count = fields.Integer(compute="_compute_counts")
-
+    facilitate = fields.Many2one(
+        "travel.facilitate", string="faciliter"
+    )
     target_margin_rate = fields.Float(
         string="Marge cible du dossier (%)",
         help="Applique ce taux a toutes les prestations via le bouton dedie.",
@@ -87,7 +95,18 @@ class TravelFile(models.Model):
     margin_rate = fields.Float(
         string="Taux de marge (%)", compute="_compute_amounts", store=True
     )
+    discount = fields.Monetary(
+        string="Discount",
+        currency_field="currency_id",
+        tracking=True,
+    )
 
+    total_discount = fields.Monetary(
+        string="Totale avec remise",
+        currency_field="currency_id",
+        compute="_compute_amounts",
+        store=True,
+    )
     next_deadline = fields.Date(
         string="Prochaine limite d'annulation",
         compute="_compute_next_deadline",
@@ -117,7 +136,90 @@ class TravelFile(models.Model):
         copy=False,
     )
     note = fields.Html(string="Notes internes")
+    # ---------------------------------------------------------
+    # ROOM
+    # ---------------------------------------------------------
 
+    room_type = fields.Selection(
+        [
+            ("individuelle", "individuelle"),
+            ("double", "Double"),
+            ("tripler", "tripler"),
+            ("quadruple", "Quadruple"),
+            ("suite", "Suite"),
+            ("famille", "Famille"),
+            ("autre", "Autre"),
+        ],
+        string="Type de chambre",
+        required=True,
+        tracking=True,
+    )
+
+    number_of_rooms = fields.Integer(
+        string="Nombre de chambres",
+        default=1,
+        required=True,
+    )
+
+    room_number = fields.Char(
+        string=" N° de chamber",
+    )
+    room_view = fields.Many2one("room.view" , string=" vue de chamber")
+    # -------------------------------
+    number_of_nights = fields.Integer(
+        string="Nombre de nuits",
+        compute="_compute_number_of_nights",
+        store=True,
+    )
+    board_type = fields.Selection[("petit_dejeuner","Petit Dejeuner")
+                                  ("demi_pension","Demi Pension")
+                                  ("pension_complete","Pension Complete")]
+
+    # =========================================================
+    # FLIGHT
+    # =========================================================
+
+    flight_type = fields.Selection(
+        [
+            ("aller_retour", "Aller / Retour"),
+            ("aller_simple", "Aller simple"),
+            ("multi_destination", "Multi destination"),
+        ],
+        string="Type de vol",
+        tracking=True,
+    )
+
+    flight_class = fields.Selection(
+        [
+            ("indifferent", "Indifferent"),
+            ("economique", "Economique"),
+            ("premium", "Premium"),
+            ("affaires", "Affaires"),
+            ("premiere", "Premiere"),
+        ],
+        string="Class de vol",
+        default="indifferent",
+        tracking=True,
+    )
+
+    with_baggage = fields.Boolean(
+        string="avec bagage",
+        default=False,
+    )
+
+    direct_flight = fields.Boolean(
+        string="vol Direct ",
+        default=False,
+    )
+
+    flexibility_id = fields.Many2one(
+        "travel.flight.flexibility",
+        string="Flexibility",
+    )
+    # -------------------------------
+
+
+     # -------------------------------
     _sql_constraints = [
         ("name_uniq", "unique(name, company_id)", "Cette reference existe deja."),
     ]
@@ -125,13 +227,25 @@ class TravelFile(models.Model):
     # ------------------------------------------------------------------
     # Calculs
     # ------------------------------------------------------------------
+
+    @api.depends("date_departure", "date_return")
+    def _compute_number_of_nights(self):
+        for record in self:
+            if record.date_departure and record.date_return:
+                delta = record.date_departure - record.date_return
+                record.number_of_nights = max(delta.days, 0)
+            else:
+                record.number_of_nights = 0
+
     @api.depends("service_ids.sale_subtotal", "service_ids.cost_company")
     def _compute_amounts(self):
         for rec in self:
             sale = sum(rec.service_ids.mapped("sale_subtotal"))
             cost = sum(rec.service_ids.mapped("cost_company"))
+            discount = rec.discount
             rec.amount_sale = sale
             rec.amount_cost = cost
+            rec.total_discount = rec.amount_sale - discount
             rec.margin = sale - cost
             rec.margin_rate = (rec.margin / sale * 100.0) if sale else 0.0
 
@@ -293,6 +407,59 @@ class TravelFile(models.Model):
     def action_option(self):
         self.write({"state": "option"})
 
+    def _create_invoice(self):
+        self.ensure_one()
+
+        if self.invoice_id:
+            return self.invoice_id
+
+        invoice_lines = []
+
+        for service in self.service_ids:
+            if not service.product_id:
+                raise UserError(
+                    _("La prestation %s n'a pas de produit.")
+                    % service.name
+                )
+
+            invoice_lines.append(
+                (
+                    0,
+                    0,
+                    {
+                        "product_id": service.product_id.id,
+                        "name": service.description or service.name,
+                        "quantity": service.quantity,
+                        "price_unit": service.sale_price,
+                        "discount": service.discount,
+                        "account_id": (
+                                service.product_id.property_account_income_id.id
+                                or service.product_id.categ_id.property_account_income_categ_id.id
+                        ),
+                    },
+                )
+            )
+
+        if not invoice_lines:
+            raise UserError(
+                _("Impossible de créer une facture sans lignes.")
+            )
+
+        invoice = self.env["account.move"].create(
+            {
+                "move_type": "out_invoice",
+                "partner_id": self.partner_id.id,
+                "invoice_date": fields.Date.context_today(self),
+                "currency_id": self.currency_id.id,
+                "travel_file_id": self.id,
+                "invoice_line_ids": invoice_lines,
+            }
+        )
+
+        self.invoice_id = invoice.id
+
+        return invoice
+
     def action_confirm(self):
         for rec in self:
             if rec.is_template:
@@ -307,6 +474,8 @@ class TravelFile(models.Model):
                 )
             rec.state = "confirmed"
             rec.action_generate_documents()
+            # Création de la facture
+            rec._create_invoice()
 
     def action_done(self):
         self.write({"state": "done"})

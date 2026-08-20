@@ -56,7 +56,18 @@ class TravelPassenger(models.Model):
         copy=False,
     )
     note = fields.Text()
+    cin_number = fields.Char(string="N° de cin")
 
+    is_tunisian = fields.Boolean(
+        compute='_compute_is_tunisian'
+    )
+
+    @api.depends('travel_nationality_id')
+    def _compute_is_tunisian(self):
+        for record in self:
+            record.is_tunisian = (
+                    record.nationality_id.code == 'TN'
+            )
     @api.depends("passport_expiry", "file_id.date_departure")
     def _compute_passport_state(self):
         today = fields.Date.context_today(self)
@@ -87,6 +98,7 @@ class TravelPassenger(models.Model):
         self.birthdate = self.birthdate or p.travel_birthdate
         self.nationality_id = self.nationality_id or p.travel_nationality_id
         self.passport_number = self.passport_number or p.travel_passport_number
+        self.cin_number = self.cin_number or p.travel_cin_number
         self.passport_expiry = self.passport_expiry or p.travel_passport_expiry
 
     def _sync_to_partner(self):

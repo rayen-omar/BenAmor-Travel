@@ -12,6 +12,7 @@ class ResPartner(models.Model):
     travel_birthdate = fields.Date(string="Date de naissance")
     travel_nationality_id = fields.Many2one("res.country", string="Nationalite")
     travel_passport_number = fields.Char(string="N. Passeport")
+    travel_cin_number = fields.Char(string="N. Cin")
     travel_passport_expiry = fields.Date(string="Expiration passeport")
     travel_note = fields.Text(
         string="Preferences de voyage",
@@ -28,6 +29,17 @@ class ResPartner(models.Model):
     travel_last_date = fields.Date(
         string="Dernier voyage", compute="_compute_travel_stats"
     )
+
+    travel_is_tunisian = fields.Boolean(
+        compute='_compute_travel_is_tunisian'
+    )
+
+    @api.depends('travel_nationality_id')
+    def _compute_travel_is_tunisian(self):
+        for record in self:
+            record.travel_is_tunisian = (
+                    record.travel_nationality_id.code == 'TN'
+            )
 
     def _compute_travel_stats(self):
         File = self.env["travel.file"]
