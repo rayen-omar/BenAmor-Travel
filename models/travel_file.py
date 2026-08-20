@@ -245,7 +245,7 @@ class TravelFile(models.Model):
                 print("srgggfg")
                 record.number_of_nights = 0
 
-    @api.depends("service_ids.sale_subtotal", "service_ids.cost_company")
+    @api.depends("service_ids.sale_subtotal", "service_ids.cost_company","discount")
     def _compute_amounts(self):
         for rec in self:
             sale = sum(rec.service_ids.mapped("sale_subtotal"))

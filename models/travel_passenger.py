@@ -93,7 +93,7 @@ class TravelPassenger(models.Model):
         if not p:
             return
         self.name = self.name or p.name
-        self.phone = self.phone or p.phone or p.mobile
+        self.phone = self.phone or p.phone
         self.email = self.email or p.email
         self.birthdate = self.birthdate or p.travel_birthdate
         self.nationality_id = self.nationality_id or p.travel_nationality_id

@@ -137,7 +137,7 @@
 
                         <field name="hotel_id"/>
                         <field name="name"/>
-                        <field name="icon"/>
+                        <field name="icon"  widget="image"/>
 
                     </group>
 
