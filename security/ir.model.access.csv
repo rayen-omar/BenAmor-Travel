@@ -19,4 +19,4 @@ access_travel_photo,travel.photo,model_travel_photo,group_travel_manager,1,1,1,1
 access_travel_facilitate,travel.facilitate,model_travel_facilitate,group_travel_manager,1,1,1,1
 access_travel_room_view,room.view,model_room_view,group_travel_manager,1,1,1,1
 access_travel_flight_flexibility,travel.flight.flexibility,model_travel_flight_flexibility,group_travel_manager,1,1,1,1
-access_ocr_invoice,ocr.invoice,model_ocr_invoice,,1,1,1,1
+access_ocr_invoice,ocr.invoice,model_ocr_invoice,base.group_user,1,1,1,1
