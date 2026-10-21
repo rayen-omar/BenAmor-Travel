@@ -64,7 +64,7 @@ class AccountMove(models.Model):
         self.ensure_one()
 
         action = self.env["ir.actions.actions"]._for_xml_id(
-            "ocr.action_ocr_invoice"
+            "action_ocr_invoice"
         )
 
         ocr_ids = self.ocr_ids
@@ -72,7 +72,7 @@ class AccountMove(models.Model):
         if not ocr_ids:
             action.update({
                 "view_mode": "form",
-                "views": [(self.env.ref("ocr.action_ocr_invoice").id, "form")],
+                "views": [(self.env.ref("action_ocr_invoice").id, "form")],
                 "res_id": False,
                 "domain": [],
                 "context": {
@@ -84,15 +84,15 @@ class AccountMove(models.Model):
         elif len(ocr_ids) == 1:
             action.update({
                 "view_mode": "form",
-                "views": [(self.env.ref("ocr.view_ocr_invoice_form").id, "form")],
+                "views": [(self.env.ref("view_ocr_invoice_form").id, "form")],
                 "res_id": ocr_ids.id,
                 "domain": [("id", "=", ocr_ids.id)],
             })
         else:
             action.update({
                 "view_mode": "list,form",
-                "views": [(self.env.ref("ocr.view_ocr_invoice_list").id,"list"),
-                    (self.env.ref("ocr.view_ocr_invoice_form").id,"form")],
+                "views": [(self.env.ref("view_ocr_invoice_list").id,"list"),
+                    (self.env.ref("view_ocr_invoice_form").id,"form")],
                 "res_id": False,
                 "domain": [("invoice_id", "=", self.id)],
             })
