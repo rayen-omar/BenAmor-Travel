@@ -91,7 +91,7 @@
     <menuitem id="menu_travel_currency" name="Devises et taux"
               parent="menu_travel_config_account" action="action_travel_currency" sequence="30"/>
 
-        <menuitem
+        `<!--<menuitem
         id="menu_travel_flight_flexibility"
         name="Flexibilité des vols"
         parent="menu_travel_config"
@@ -129,5 +129,5 @@
         parent="menu_travel_config"
         action="action_travel_photo"
         sequence="80"
-    />
+    />-->
 </odoo>

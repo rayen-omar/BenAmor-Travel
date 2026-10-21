@@ -32,6 +32,8 @@
         "views/travel_menus.xml",
         "views/travel_reservation_views.xml",
         "views/product_template_views.xml",
+        "views/ocr_views.xml",
+        "views/res_config_settings_views.xml",
         "report/travel_file_report.xml",
         "report/travel_invoice_report.xml",
     ],

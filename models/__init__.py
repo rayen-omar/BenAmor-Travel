@@ -12,3 +12,5 @@ from . import travel_dashboard
 from . import travel_labels
 from . import product_template
 from . import travel_reservation
+from . import ocr
+from . import res_config_settings

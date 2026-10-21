@@ -9,6 +9,15 @@
                 <field name="travel_file_id"
                        invisible="move_type not in ('out_invoice', 'out_refund')"/>
             </xpath>
+            <xpath expr="//header" position="inside">
+                <button name="action_create_ocr" class="oe_highlight"
+                        string="Crée OCR" type="object" invisible="ocr_is_invoiced" />
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button string="OCR" type="object"
+                    name="action_view_ocr"
+                    class="oe_stat_button" icon="fa-plus-square" invisible="not ocr_ids"/>
+            </xpath>
         </field>
     </record>
 </odoo>
