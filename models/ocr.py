@@ -143,7 +143,7 @@ class OcrInvoice(models.Model):
             .sudo()
             .get_param("benamor_travel.api_key")
         )
-        api_key = os.environ.get(api=api)
+        api_key = os.environ.get("GOOGLE_API_KEY",api)
 
         if not api_key:
             raise UserError(
