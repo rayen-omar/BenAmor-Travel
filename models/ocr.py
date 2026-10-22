@@ -138,11 +138,12 @@ class OcrInvoice(models.Model):
 
     def action_parse_with_gemini(self):
         self.ensure_one()
-        api_key = (
+        api = (
             self.env["ir.config_parameter"]
             .sudo()
             .get_param("benamor_travel.api_key")
         )
+        api_key = os.environ.get(api=api)
 
         if not api_key:
             raise UserError(
