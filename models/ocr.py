@@ -68,34 +68,24 @@ class OcrInvoice(models.Model):
         if not self.invoice_file:
             raise UserError("Please upload an invoice image or PDF.")
 
-        pytesseract.pytesseract.tesseract_cmd = (
-            r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-        )
+        # Linux paths on the Ubuntu server
+        pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
+
         file_bytes = base64.b64decode(self.invoice_file)
         filename = (self.invoice_filename or "").lower()
 
         try:
             if filename.endswith(".pdf"):
-                # Update this path to your Poppler installation.
-                poppler_path = (
-                    r"C:\poppler\Library\bin"
-                )
-
-                if not os.path.isdir(poppler_path):
-                    raise UserError(
-                        "Poppler was not found. Update poppler_path "
-                        "to your actual Poppler bin directory."
-                    )
-
                 images = convert_from_bytes(
                     file_bytes,
                     dpi=200,
-                    poppler_path=poppler_path,
                     first_page=1,
                     last_page=10,
                 )
 
-            elif filename.endswith((".png", ".jpg", ".jpeg", ".tif", ".tiff", ".bmp")):
+            elif filename.endswith(
+                    (".png", ".jpg", ".jpeg", ".tif", ".tiff", ".bmp")
+            ):
                 image = Image.open(io.BytesIO(file_bytes))
                 images = [image.convert("RGB")]
 
@@ -111,29 +101,45 @@ class OcrInvoice(models.Model):
                     image,
                     lang="eng+fra",
                 )
+
                 extracted_pages.append(
                     f"--- Page {page_number} ---\n{text.strip()}"
                 )
 
-            self.extracted_text = "\n\n".join(extracted_pages)
+            extracted_text = "\n\n".join(extracted_pages)
 
-            if not self.extracted_text.strip():
+            if not extracted_text.strip():
                 raise UserError(
                     "No text was detected. Check the document quality "
                     "and installed OCR languages."
                 )
 
-        except (UnidentifiedImageError, PDFSyntaxError):
-            raise UserError("The uploaded file could not be read.")
-        except (PDFInfoNotInstalledError, PDFPageCountError):
+            self.write({
+                "extracted_text": extracted_text,
+                "status": "text_extracted",
+            })
+
+        except UserError:
+            raise
+
+        except (UnidentifiedImageError, PDFSyntaxError) as e:
             raise UserError(
-                "Unable to process the PDF. Check the Poppler installation."
+                f"The uploaded file could not be read: {e}"
             )
+
+        except (PDFInfoNotInstalledError, PDFPageCountError) as e:
+            raise UserError(
+                f"Unable to process the PDF. Check Poppler: {e}"
+            )
+
         except pytesseract.TesseractNotFoundError:
-            raise UserError("Tesseract was not found on this computer.")
-        self.write({
-            "status": "text_extracted",
-        })
+            raise UserError(
+                "Tesseract was not found at /usr/bin/tesseract."
+            )
+
+        except Exception as e:
+            raise UserError(f"OCR extraction failed: {e}")
+
         return True
 
     def action_parse_with_gemini(self):
