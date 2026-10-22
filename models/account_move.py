@@ -64,7 +64,7 @@ class AccountMove(models.Model):
         self.ensure_one()
 
         action = self.env["ir.actions.actions"]._for_xml_id(
-            "action_ocr_invoice"
+            "base_addons.action_ocr_invoice"
         )
 
         ocr_ids = self.ocr_ids
@@ -72,7 +72,7 @@ class AccountMove(models.Model):
         if not ocr_ids:
             action.update({
                 "view_mode": "form",
-                "views": [(self.env.ref("action_ocr_invoice").id, "form")],
+                "views": [(self.env.ref("base_addons.action_ocr_invoice").id, "form")],
                 "res_id": False,
                 "domain": [],
                 "context": {
