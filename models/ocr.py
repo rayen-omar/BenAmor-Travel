@@ -260,6 +260,7 @@ class OcrInvoice(models.Model):
                     "type": "success",
                     "sticky": False,
                 },
+                "next": {"type": "ir.actions.act_window_close"},
             }
 
         except UserError:
