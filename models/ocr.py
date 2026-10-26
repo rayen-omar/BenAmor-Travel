@@ -259,8 +259,9 @@ class OcrInvoice(models.Model):
                     "message": _("Invoice data extracted successfully."),
                     "type": "success",
                     "sticky": False,
+                    "next": {"type": "ir.actions.act_window_close"},
+
                 },
-                "next": {"type": "ir.actions.act_window_close"},
             }
 
         except UserError:
